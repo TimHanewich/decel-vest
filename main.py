@@ -20,7 +20,6 @@ while True:
     g = attitude_math.combine_gs(ax, ay, az)
     if (g > max_g):
         max_g = g
-        print("NEW MAX! " + str(max_g))
         dlogging.log("New max G: " + str(max_g))
 
     time.sleep(0.05)
