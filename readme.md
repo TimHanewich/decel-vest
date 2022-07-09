@@ -2,6 +2,9 @@
 Detecting deceleration while in/on a vehicle from wearing an MPU6050 accelerometer.
 
 ## Raspberry Pi Pico Tips
+- Great youtube videos on getting started:
+    - Getting started: https://www.youtube.com/watch?v=yzsEr2QCGPw
+    - Using rShell: https://www.youtube.com/watch?v=IMZUZuytt7o&ab_channel=CoreElectronics
 - Pico Datasheet: https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf
 - Using **rshell**
     - To copy contents of a folder to another folder
