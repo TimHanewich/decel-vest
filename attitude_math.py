@@ -28,6 +28,3 @@ def attitude(gx:float,gy:float,gz:float):
     roll_degs = roll_rads * (180 / math.pi)
 
     return pitch_degs, roll_degs
-
-
-print(attitude(0, 0, 0))
