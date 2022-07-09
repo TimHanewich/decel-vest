@@ -15,10 +15,14 @@ while True:
     ay=round(imu.accel.y,2)
     az=round(imu.accel.z,2)
 
-    attitude = attitude_math.attitude(ax, ay, az)
-    pitch = round(attitude[0], 0)
-    roll = round(attitude[1], 0)
-    print(str(pitch) + " " + str(roll))
+    try:
+        attitude = attitude_math.attitude(ax, ay, az)
+        pitch = round(attitude[0], 0)
+        roll = round(attitude[1], 0)
+        print(str(pitch) + " " + str(roll))
+    except Exception as e:
+        print("ERROR: " + e)
+
     
     # Following sleep statement makes values enought stable to be seen and
     # read by a human from shell
