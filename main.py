@@ -4,9 +4,6 @@ from machine import Pin, I2C
 import attitude_math
 import dlogging
 
-# log that I am turned on
-dlogging.log("Turned on!")
-
 i2c = I2C(0, sda=Pin(4), scl=Pin(5), freq=400000)
 imu = MPU6050(i2c)
 
@@ -18,24 +15,11 @@ while True:
     ax=round(imu.accel.x,2)
     ay=round(imu.accel.y,2)
     az=round(imu.accel.z,2)
-    dlogging.log("Got values")
-    dlogging.log("X: " + str(ax))
-    dlogging.log("Y: " + str(ay))
-    dlogging.log("Z: " + str(az))
 
-    try:
-        dlogging.log("Calculating attitude")
-        attitude = attitude_math.attitude(ax, ay, az)
-        dlogging.log("Attitude calculated!")
-        dlogging.log("Pitch: " + str(attitude[0]))
-        dlogging.log("Roll: " + str(attitude[1]))
-        pitch = round(attitude[0], 0)
-        roll = round(attitude[1], 0)
-        dlogging.log("pitch: " + str(pitch))
-        dlogging.log("roll: " + str(roll))
-        dlogging.log(str(pitch) + " " + str(roll))
-    except Exception as e:
-        dlogging.log("ERROR: " + e)
+    attitude = attitude_math.attitude(ax, ay, az)
+    pitch = round(attitude[0], 0)
+    roll = round(attitude[1], 0)
+    print(str(pitch) + " " + str(roll))
 
     
     # Following sleep statement makes values enought stable to be seen and
