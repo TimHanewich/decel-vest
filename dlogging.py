@@ -1,7 +1,9 @@
+import time
+
 def log(txt:str):
     print(txt)
     f = open("log.txt", "a")
-    f.write(txt + "\n")
+    f.write(str(time.gmtime()) + ": " + txt + "\n")
     f.close()
 
 def retrieve_log():
