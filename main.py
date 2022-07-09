@@ -9,6 +9,7 @@ imu = MPU6050(i2c)
 
 # vars to contain max
 max_g = 0.0
+last_pulse = time.time()
 
 while True:
 
@@ -21,5 +22,12 @@ while True:
     if (g > max_g):
         max_g = g
         dlogging.log("New max G: " + str(max_g))
+
+    # is it time to log a pulse?
+    since_pulse = time.time() - last_pulse # number of seconds since the last pulse was logged
+    if since_pulse > 600: # if it has been more than 10 minutes
+        dlogging.log("I am still alive!")
+        last_pulse = time.time()
+
 
     time.sleep(0.05)
