@@ -11,10 +11,7 @@ imu = MPU6050(i2c)
 max_g = 0.0
 
 while True:
-    # Following print shows original data get from libary. You can uncomment to see raw data
-    #print(imu.accel.xyz,imu.gyro.xyz,imu.temperature,end='\r')
-    
-    # Following rows round values get for a more pretty print:
+
     ax=round(imu.accel.x,2)
     ay=round(imu.accel.y,2)
     az=round(imu.accel.z,2)
@@ -23,6 +20,6 @@ while True:
     g = attitude_math.combine_gs(ax, ay, az)
     if (g > max_g):
         max_g = g
-        dlogging.log("New max G: " + g)
+        dlogging.log("New max G: " + str(max_g))
 
     time.sleep(0.05)
