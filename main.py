@@ -7,6 +7,9 @@ import dlogging
 i2c = I2C(0, sda=Pin(4), scl=Pin(5), freq=400000)
 imu = MPU6050(i2c)
 
+# vars to contain max
+max_g = 0.0
+
 while True:
     # Following print shows original data get from libary. You can uncomment to see raw data
     #print(imu.accel.xyz,imu.gyro.xyz,imu.temperature,end='\r')
@@ -16,12 +19,10 @@ while True:
     ay=round(imu.accel.y,2)
     az=round(imu.accel.z,2)
 
-    attitude = attitude_math.attitude(ax, ay, az)
-    pitch = round(attitude[0], 0)
-    roll = round(attitude[1], 0)
-    print(str(pitch) + " " + str(roll))
+    # calculate a single g
+    g = attitude_math.combine_gs(ax, ay, az)
+    if (g > max_g):
+        max_g = g
+        dlogging.log("New max G: " + g)
 
-    
-    # Following sleep statement makes values enought stable to be seen and
-    # read by a human from shell
-    time.sleep(0.2)
+    time.sleep(0.05)

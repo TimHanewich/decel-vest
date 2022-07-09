@@ -28,3 +28,8 @@ def attitude(gx:float,gy:float,gz:float):
     roll_degs = roll_rads * (180 / math.pi)
 
     return pitch_degs, roll_degs
+
+# returns the total G's in a single direction
+def combine_gs(gx:float,gy:float,gz:float):
+    g = math.sqrt((gx*gx)+(gy*gy)+(gz*gz))
+    return g
