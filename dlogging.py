@@ -4,7 +4,7 @@ def log(txt:str):
     f.write(txt + "\n")
     f.close()
 
-def retrieve_logs():
+def retrieve_log():
     try:
         f = open("log.txt", "r")
         return f.read()
