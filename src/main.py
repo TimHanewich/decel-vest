@@ -31,6 +31,6 @@ while True:
     tem=round(imu.temperature,2)
 
     # Log it
-    dlogging.log(str(ax) + "-" + str(ay) + "-" + str(az) + "-" + str(tem))
+    dlogging.log(str(ax) + "_" + str(ay) + "_" + str(az) + "_" + str(tem))
 
-    time.sleep(0.2)
+    time.sleep(0.6)
