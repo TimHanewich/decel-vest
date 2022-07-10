@@ -19,18 +19,18 @@ def ContinuousBlinking():
 _thread.start_new_thread(ContinuousBlinking, ())
 
 
-i2c = I2C(0, sda=Pin(4), scl=Pin(5), freq=400000)
-imu = MPU6050(i2c)
+# i2c = I2C(0, sda=Pin(4), scl=Pin(5), freq=400000)
+# imu = MPU6050(i2c)
 
 
-while True:
+# while True:
 
-    ax=round(imu.accel.x,2)
-    ay=round(imu.accel.y,2)
-    az=round(imu.accel.z,2)
-    tem=round(imu.temperature,2)
+#     ax=round(imu.accel.x,2)
+#     ay=round(imu.accel.y,2)
+#     az=round(imu.accel.z,2)
+#     tem=round(imu.temperature,2)
 
-    # Log it
-    dlogging.log(str(ax) + "_" + str(ay) + "_" + str(az) + "_" + str(tem))
+#     # Log it
+#     dlogging.log(str(ax) + "_" + str(ay) + "_" + str(az) + "_" + str(tem))
 
-    time.sleep(0.6)
+#     time.sleep(0.6)
