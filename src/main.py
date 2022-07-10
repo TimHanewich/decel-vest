@@ -20,7 +20,7 @@ _thread.start_new_thread(ContinuousBlinking, ())
 
 while True:
     dlogging.log("Hi it's me!")
-    time.sleep(1)
+    time.sleep(0.5)
 
 
 # i2c = I2C(0, sda=Pin(4), scl=Pin(5), freq=400000)
