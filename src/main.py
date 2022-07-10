@@ -1,9 +1,7 @@
 from imu import MPU6050
 import time
 from machine import Pin, I2C
-import attitude_math
 import dlogging
-import _thread
 
 # log an "I'm on!" message
 dlogging.log("main.py started! Hello world!")
