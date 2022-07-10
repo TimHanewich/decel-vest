@@ -3,6 +3,18 @@ import time
 from machine import Pin, I2C
 import attitude_math
 import dlogging
+import _thread
+
+# Kick off thread to handle blinking LED
+led = Pin(25, Pin.OUT)
+def ContinuousBlinking():
+    while True:
+        led.value(1)
+        time.sleep(0.5)
+        led.value(0)
+        time.sleep(0.5)
+_thread.start_new_thread(ContinuousBlinking, ())
+
 
 i2c = I2C(0, sda=Pin(4), scl=Pin(5), freq=400000)
 imu = MPU6050(i2c)
