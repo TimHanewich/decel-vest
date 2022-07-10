@@ -22,9 +22,6 @@ _thread.start_new_thread(ContinuousBlinking, ())
 i2c = I2C(0, sda=Pin(4), scl=Pin(5), freq=400000)
 imu = MPU6050(i2c)
 
-# vars to contain max
-max_g = 0.0
-last_pulse = time.time()
 
 while True:
 
@@ -32,17 +29,7 @@ while True:
     ay=round(imu.accel.y,2)
     az=round(imu.accel.z,2)
 
-    # calculate a single g
-    g = attitude_math.combine_gs(ax, ay, az)
-    if (g > max_g):
-        max_g = g
-        dlogging.log("New max G: " + str(max_g))
+    # Log it
+    dlogging.log(str(ax) + "-" + str(ay) + "-" + str(az))
 
-    # is it time to log a pulse?
-    since_pulse = time.time() - last_pulse # number of seconds since the last pulse was logged
-    if since_pulse > 600: # if it has been more than 10 minutes
-        dlogging.log("I am still alive!")
-        last_pulse = time.time()
-
-
-    time.sleep(0.05)
+    time.sleep(0.2)
