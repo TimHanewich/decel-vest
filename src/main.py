@@ -5,6 +5,9 @@ import attitude_math
 import dlogging
 import _thread
 
+# log an "I'm on!" message
+dlogging.log("main.py started! Hello world!")
+
 # Kick off thread to handle blinking LED
 led = Pin(25, Pin.OUT)
 def ContinuousBlinking():
