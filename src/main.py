@@ -28,8 +28,9 @@ while True:
     ax=round(imu.accel.x,2)
     ay=round(imu.accel.y,2)
     az=round(imu.accel.z,2)
+    tem=round(imu.temperature,2)
 
     # Log it
-    dlogging.log(str(ax) + "-" + str(ay) + "-" + str(az))
+    dlogging.log(str(ax) + "-" + str(ay) + "-" + str(az) + "-" + str(tem))
 
     time.sleep(0.2)
