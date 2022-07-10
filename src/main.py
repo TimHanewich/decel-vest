@@ -18,6 +18,10 @@ def ContinuousBlinking():
         time.sleep(0.5)
 _thread.start_new_thread(ContinuousBlinking, ())
 
+while True:
+    dlogging.log("Hi it's me!")
+    time.sleep(1)
+
 
 # i2c = I2C(0, sda=Pin(4), scl=Pin(5), freq=400000)
 # imu = MPU6050(i2c)
