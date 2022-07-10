@@ -33,4 +33,4 @@ while True:
     # Log it
     dlogging.log(str(ax) + "_" + str(ay) + "_" + str(az) + "_" + str(tem))
 
-    time.sleep(0.6)
+    time.sleep(0.5)
