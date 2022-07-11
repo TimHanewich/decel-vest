@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
+using TimHanewich.Csv;
 
 namespace extract
 {
@@ -79,6 +80,40 @@ namespace extract
             ToReturn.Pitch = Convert.ToSingle(pitch_degs);
             ToReturn.Roll = Convert.ToSingle(roll_degs);
             return ToReturn;
+        }
+
+        public static string ToCSV(MPU6050Log[] logs)
+        {
+            CsvFile csv = new CsvFile();
+            
+            //Add the header row
+            DataRow h = csv.AddNewRow();
+            h.Values.Add("Index");
+            h.Values.Add("Ticks");
+            h.Values.Add("gX");
+            h.Values.Add("gY");
+            h.Values.Add("gZ");
+            h.Values.Add("TempC");
+            h.Values.Add("GForce");
+            h.Values.Add("Pitch");
+            h.Values.Add("Roll");
+
+            //Add each row
+            foreach (MPU6050Log log in logs)
+            {
+                DataRow dr = csv.AddNewRow();
+                dr.Values.Add(log.Index.ToString());
+                dr.Values.Add(log.Ticks.ToString());
+                dr.Values.Add(log.gX.ToString());
+                dr.Values.Add(log.gY.ToString());
+                dr.Values.Add(log.gZ.ToString());
+                dr.Values.Add(log.TempC.ToString());
+                dr.Values.Add(log.GForce().ToString());
+                dr.Values.Add(log.ToAttitude().Pitch.ToString());
+                dr.Values.Add(log.ToAttitude().Roll.ToString());
+            }
+
+            return csv.GenerateAsCsvFileContent();
         }
 
     }
