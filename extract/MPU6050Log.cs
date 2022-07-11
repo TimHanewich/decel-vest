@@ -8,9 +8,9 @@ namespace extract
     {
         public int Index {get; set;}
         public int Ticks {get; set;}
-        public float AccX {get; set;}
-        public float AccY {get; set;}
-        public float AccZ {get; set;}
+        public float gX {get; set;}
+        public float gY {get; set;}
+        public float gZ {get; set;}
         public float TempC {get; set;}
 
         public static MPU6050Log[] Extract(string log_txt)
@@ -25,9 +25,9 @@ namespace extract
                     string[] parts = line.Split("_");
                     MPU6050Log l = new MPU6050Log();
                     l.Ticks = Convert.ToInt32(parts[0]);
-                    l.AccX = Convert.ToSingle(parts[1]);
-                    l.AccY = Convert.ToSingle(parts[2]);
-                    l.AccZ = Convert.ToSingle(parts[3]);
+                    l.gX = Convert.ToSingle(parts[1]);
+                    l.gY = Convert.ToSingle(parts[2]);
+                    l.gZ = Convert.ToSingle(parts[3]);
                     l.TempC = Convert.ToSingle(parts[4]);
                     l.Index = i;
                     ToReturn.Add(l);
@@ -43,7 +43,7 @@ namespace extract
     
         public float GForce()
         {
-            float gf = Convert.ToSingle(Math.Sqrt((AccX * AccX) + (AccY * AccY) + (AccZ * AccZ)));
+            float gf = Convert.ToSingle(Math.Sqrt((gX * gX) + (gY * gY) + (gZ * gZ)));
             return gf;
         }
     
@@ -52,9 +52,9 @@ namespace extract
             Attitude ToReturn = new Attitude();
 
             //Calculate in ms2:
-            float ms2_x = AccX * 9.80665f;
-            float ms2_y = AccY * 9.80665f;
-            float ms2_z = AccZ * 9.80665f;
+            float ms2_x = gX * 9.80665f;
+            float ms2_y = gY * 9.80665f;
+            float ms2_z = gZ * 9.80665f;
 
             //Calculate pitch - rads
             double tdb = Math.Sqrt((ms2_y * ms2_y) + (ms2_z * ms2_z));
