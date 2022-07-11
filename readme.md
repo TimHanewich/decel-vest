@@ -42,3 +42,6 @@ while True:
     # read by a human from shell
     time.sleep(0.2)
 ```
+
+## Using NEO-6M GPS Module with Raspberry Pi Pico
+- https://microcontrollerslab.com/neo-6m-gps-module-raspberry-pi-pico-micropython/
