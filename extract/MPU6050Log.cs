@@ -47,5 +47,39 @@ namespace extract
             return gf;
         }
     
+        public Attitude ToAttitude()
+        {
+            Attitude ToReturn = new Attitude();
+
+            //Calculate in ms2:
+            float ms2_x = AccX * 9.80665f;
+            float ms2_y = AccY * 9.80665f;
+            float ms2_z = AccZ * 9.80665f;
+
+            //Calculate pitch - rads
+            double tdb = Math.Sqrt((ms2_y * ms2_y) + (ms2_z * ms2_z));
+            if (tdb == 0)
+            {
+                return ToReturn;
+            }
+            double pitch_rads = Math.Atan(ms2_x / tdb);
+
+            //Calculate roll - rads
+            tdb = Math.Sqrt((ms2_x * ms2_x) + (ms2_z * ms2_z));
+            if (tdb == 0)
+            {
+                return ToReturn;
+            }
+            double roll_rads = Math.Atan(ms2_y / tdb);
+
+            //Convert
+            double pitch_degs = pitch_rads * (180 / Math.PI);
+            double roll_degs = roll_rads * (180 / Math.PI);
+
+            ToReturn.Pitch = Convert.ToSingle(pitch_degs);
+            ToReturn.Roll = Convert.ToSingle(roll_degs);
+            return ToReturn;
+        }
+
     }
 }
