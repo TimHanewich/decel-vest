@@ -1,14 +1,21 @@
 import strobe_controller
 import _thread
 import time
+import dlogging
 
+dlogging.log("About to kick off thread...")
 _thread.start_new_thread(strobe_controller.continuous_strobe, ())
-
+dlogging.log("Kicked off!")
+dlogging.log("Waiting now...")
 time.sleep(10)
+dlogging.log("Done waiting.")
 
+dlogging.log("Cycling now...")
 for hz in range(2, 40):
     strobe_controller.set_hertz(hz)
     time.sleep(1)
+
+dlogging.log("DONE")
 
 # from imu import MPU6050
 # import time
