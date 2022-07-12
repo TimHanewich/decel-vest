@@ -1,13 +1,14 @@
+import strobe_controller
+import _thread
 import time
-import machine
 
-led = machine.Pin(1, machine.Pin.OUT)
-while True:
-    led.value(1)
-    time.sleep(1)
-    led.value(0)
-    time.sleep(1)
+_thread.start_new_thread(strobe_controller.continuous_strobe, ())
 
+time.sleep(10)
+
+for hz in range(2, 40):
+    strobe_controller.set_hertz(hz)
+    time.sleep(1)
 
 # from imu import MPU6050
 # import time

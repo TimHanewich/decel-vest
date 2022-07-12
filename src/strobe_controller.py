@@ -4,7 +4,7 @@ import time
 import strobe_tools
 
 # VARIABLES
-wait_time = 0.25 #this sets the wait time in between each flash
+wait_time = 1 #this sets the wait time in between each flash
 
 def continuous_strobe():
     global wait_time
