@@ -13,6 +13,9 @@ for hz in range(settings.min_hz, settings.max_hz):
 
 time.sleep(5)
 strobe_controller.mute()
+time.sleep(5)
+strobe_controller.set_hertz(5)
+strobe_controller.unmute()
 
 # from imu import MPU6050
 # import time
