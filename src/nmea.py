@@ -31,14 +31,14 @@ def parse(data:bytes):
         rlat = raw_coord(parts[2])
         if parts[3].lower() == "n":
             latitude = rlat
-        else:
+        elif parts[3].lower() == "s":
             latitude = rlat * -1
 
         # get longitude
         rlon = raw_coord(parts[4])
         if parts[5].lower() == "w":
             longitude = rlon * -1
-        else:
+        elif parts[3].lower() == "e":
             longitude = rlon
 
         # altitude (meters)
