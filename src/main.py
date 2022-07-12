@@ -14,7 +14,7 @@ while True:
     buff = gpsModule.readline()
     try:
         nmea.parse(buff)
-        dlogging.log(str(nmea.latitude) + "," + str(nmea.longitude) + " - " + str(nmea.satellites))
+        dlogging.log(str(nmea.latitude) + "," + str(nmea.longitude) + " - " + str(nmea.satellites) + " on " + buff.decode())
     except:
         pass
 
