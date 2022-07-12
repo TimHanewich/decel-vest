@@ -1,1 +1,1 @@
-gpio_strobe = 0
+gpio_strobe = 1
