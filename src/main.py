@@ -12,8 +12,11 @@ dlogging.log("Ready to go!")
 
 while True:
     buff = gpsModule.readline()
-    nmea.parse(buff)
-    dlogging.log(str(nmea.latitude) + "," + str(nmea.longitude) + " - " + str(nmea.satellites))
+    try:
+        nmea.parse(buff)
+        dlogging.log(str(nmea.latitude) + "," + str(nmea.longitude) + " - " + str(nmea.satellites))
+    except:
+        dlogging.log("Failed on array of " + str(len(buff)) + " bytes.")
 
 
 
