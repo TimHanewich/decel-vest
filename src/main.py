@@ -2,6 +2,10 @@ from machine import Pin, UART
 import time
 import dlogging
 
+# Turn on the LED
+led = Pin(25, Pin.OUT)
+led.value(1)
+
 gpsModule = UART(1, baudrate=9600, tx=Pin(4), rx=Pin(5))
 dlogging.log(str(gpsModule))
 
