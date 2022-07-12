@@ -16,7 +16,7 @@ while True:
         nmea.parse(buff)
         dlogging.log(str(nmea.latitude) + "," + str(nmea.longitude) + " - " + str(nmea.satellites))
     except:
-        dlogging.log("Failed!")
+        
 
 
 
