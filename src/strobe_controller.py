@@ -5,6 +5,7 @@ import strobe_tools
 
 # VARIABLES
 wait_time = 1 #this sets the wait time in between each flash
+muted = False
 
 def continuous_strobe():
     global wait_time
@@ -12,12 +13,24 @@ def continuous_strobe():
     strobe_output = machine.Pin(settings.gpio_strobe, machine.Pin.OUT)
 
     while True:
-        strobe_output.value(1)
-        time.sleep(wait_time)
-        strobe_output.value(0)
-        time.sleep(wait_time)
+        if muted == False:
+            strobe_output.value(1)
+            time.sleep(wait_time)
+            strobe_output.value(0)
+            time.sleep(wait_time)
+        else:
+            strobe_output.value(0)
+            time.sleep(0.1)
 
 
 def set_hertz(hz:float):
     global wait_time
     wait_time = strobe_tools.hertz_to_seconds(hz)
+
+def mute():
+    global muted
+    muted = True
+
+def unmute():
+    global muted
+    muted = False
