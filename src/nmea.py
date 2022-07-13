@@ -60,6 +60,7 @@ def parse(data:bytes):
     global longitude
     global altitude
     global satellites
+    global speed_mph
 
     s = data.decode("utf-8")
     parts = s.split(",")
@@ -120,6 +121,17 @@ def parse(data:bytes):
 
     # set coordinates - only set all of these if they are all here
     if vFixed != None and vLatitude != None and vLongitude != None:
+
+        # calculate speed?
+        if fixed != None:
+            if fixed != 0:
+                if latitude != None and longitude != None:
+                    dist = distance(latitude, longitude, vLatitude, vLongitude)
+                    hours = (vFixed - fixed) / 60 / 60 # the difference between vFixed and fixed is in seconds, so need to divide by 60 and then 60 again to get it in hours.
+                    mph = dist / hours
+                    speed_mph = mph
+
+        # set values
         fixed = vFixed
         latitude = vLatitude
         longitude = vLongitude
