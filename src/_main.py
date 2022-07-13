@@ -11,13 +11,13 @@ gpsModule = UART(1, baudrate=9600, tx=Pin(4), rx=Pin(5))
 dlogging.log("Ready to go!")
 
 while True:
-    #try:
+    try:
         buff = gpsModule.readline()
         if buff != None:
             nmea.parse(buff)
             dlogging.log(str(nmea.latitude) + "," + str(nmea.longitude) + " - " + str(nmea.satellites) + " on " + buff.decode())
-    #except:
-    #    dlogging.log("Failed!")
+    except Exception as e:
+        dlogging.log("Failed: " + str(e))
 
 
 
