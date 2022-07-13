@@ -13,8 +13,9 @@ dlogging.log("Ready to go!")
 while True:
     #try:
         buff = gpsModule.readline()
-        nmea.parse(buff)
-        dlogging.log(str(nmea.latitude) + "," + str(nmea.longitude) + " - " + str(nmea.satellites) + " on " + buff.decode())
+        if buff != None:
+            nmea.parse(buff)
+            dlogging.log(str(nmea.latitude) + "," + str(nmea.longitude) + " - " + str(nmea.satellites) + " on " + buff.decode())
     #except:
     #    dlogging.log("Failed!")
 
