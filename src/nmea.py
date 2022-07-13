@@ -50,11 +50,16 @@ class gps_telemetry:
     fixed = None #seconds when it was received
     latitude = None
     longitude = None
-    altitude = None
     satellites = None
+    accuracy = None
+    altitude = None
+    
 
 
 def parse(line:str) -> gps_telemetry:
+
+    # Time to preapre the return object
+    ToReturn = gps_telemetry()
 
     # variables we will try to collect in each message below
     rFixed = None
@@ -128,8 +133,10 @@ def parse(line:str) -> gps_telemetry:
             vAltitude = float(rAltitude)
 
 
-    # Time to preapre the return object
-    ToReturn = gps_telemetry()
+    # get the accuracy
+    rAccuracy = parts[8]
+    if rAccuracy != "":
+        ToReturn.accuracy = float(rAccuracy)
 
     # set coordinates - only set all of these if they are all here
     if vFixed != None and vLatitude != None and vLongitude != None: 
