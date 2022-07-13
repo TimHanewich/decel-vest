@@ -5,7 +5,7 @@ fixed = 0 # number of seconds in UTC time that was collected
 latitude = 0.0
 longitude = 0.0
 altitude = 0.0
-satellites = 0
+satellites = 0.0
 speed_mph = 0.0
 
 # returns distance in miles
@@ -114,7 +114,7 @@ def parse(data:bytes):
 
     # get satellites
     if rSatellites != None:
-        vSatellites = int(rSatellites)
+        vSatellites = float(rSatellites)
 
     # get altitude
     if rAltitude != None:
@@ -152,6 +152,7 @@ def parse(data:bytes):
         
 # error-causing:
 #parse(b'$GPGGA,233517.00,2.38482,N,08227.11282,W,1,06,1.33,25.1,M,,*5A')
+parse(b"$GPGGA,170038.00,2712.37832,N,08227.11255,W,1.83,12.1,M,-26.9,M,,*58")
 
 # works:
 #parse(b'GPGGA,185227.00,2712.37950,N,08227.10759,W,1,10,0.95,9.5,M,-26.9,M,,*6F\r\n')
