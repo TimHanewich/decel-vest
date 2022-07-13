@@ -12,6 +12,13 @@ class speed_controller:
     __last_gps_tele__= None
 
     def ingest(self, tele:nmea.gps_telemetry):
+
+        # if speed is not set, just set it to 0
+        if self.speed_mph == None and self.__speed_at__ == None:
+            self.speed_mph = 0
+            self.__speed_at__ = 0
+
+        # do we have enough to calculate?
         if tele.fixed != None and tele.latitude != None and tele.longitude != None: #this package contains all of the things we need
             
             # calculate speed?
@@ -37,10 +44,7 @@ class speed_controller:
                                 self.acceleration_mphs = acc
                                 self.__acceleration_at__ = tele.fixed
 
-                        # if speed is not set, just set it
-                        if self.speed_mph == None and self.__speed_at__ == None:
-                            self.speed_mph = speed_mph
-                            self.__speed_at__ = tele.fixed
+                        
 
-            # Save it
+            # Since this has the data we need, save it
             self.__last_gps_tele__ = tele
