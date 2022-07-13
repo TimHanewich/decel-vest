@@ -19,6 +19,7 @@ while True:
     while line_collected == False:
         dlogging.log("reading lien now...")
         tidbit = gpsModule.readline()
+        dlogging.log("Line read!")
         if tidbit != None:
 
             dlogging.log("line was not null!")
@@ -41,6 +42,8 @@ while True:
             if "*" in line:
                 dlogging.log("Marking as fully collected")
                 line_collected = True
+        else:
+            dlogging.log("Line was NONE!")
 
     # now that the line is collected, parse it
     try:
