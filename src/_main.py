@@ -38,13 +38,9 @@ while True:
     # now that the line is collected, parse it
     try:
         nmea.parse(line)
-        dlogging.log(str(nmea.latitude) + "," + str(nmea.longitude) + " - " + str(nmea.satellites) + " on " + line)
+        dlogging.log(str(nmea.latitude) + "," + str(nmea.longitude) + " = " + str(nmea.speed_mph))
     except Exception as e:
-        dlogging.log("Failed: " + str(e))
-        try:
-            dlogging.log("From that error: " + line)
-        except:
-            pass
+        pass
 
 
 # import strobe_controller
