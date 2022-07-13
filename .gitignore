@@ -1,3 +1,4 @@
 extract/obj/
 extract/bin/
 .vscode/
+__pycache__/
