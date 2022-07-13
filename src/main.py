@@ -33,14 +33,12 @@ while True:
             if "*" in line:
                 line_collected = True
 
-    dlogging.log(line, False)
-
     # now that the line is collected, parse it
-    #try:
-    #    nmea.parse(line)
-    #    dlogging.log(str(nmea.latitude) + "," + str(nmea.longitude) + " = " + str(nmea.speed_mph))
-    #except Exception as e:
-    #    pass
+    try:
+       nmea.parse(line)
+       dlogging.log(str(nmea.latitude) + "," + str(nmea.longitude) + " = " + str(nmea.speed_mph))
+    except Exception as e:
+       pass
 
 
 # import strobe_controller
