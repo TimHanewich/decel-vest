@@ -45,3 +45,4 @@ while True:
 
 ## Using NEO-6M GPS Module with Raspberry Pi Pico
 - https://microcontrollerslab.com/neo-6m-gps-module-raspberry-pi-pico-micropython/
+- NMEA Codes: http://aprs.gids.nl/nmea/
