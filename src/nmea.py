@@ -1,9 +1,18 @@
 
 # ONGOING VARIABLES
+fixed = 0 # number of seconds in UTC time that was collected
 latitude = 0.0
 longitude = 0.0
 altitude = 0.0
 satellites = 0
+
+# Converts a raw time field to number of seconds
+def raw_seconds(val:str) -> int:
+    p1 = int(val[0:2])
+    p2 = int(val[2:4])
+    p3 = int(val[4:6])
+    tr = (p1 * 60 * 60) + (p2 * 60) + p3
+    return tr
 
 def raw_coord(val:str) -> float:
     ind = val.index(".")
@@ -20,44 +29,85 @@ def raw_coord(val:str) -> float:
 
 def parse(data:bytes):
 
-    global latitude, longitude, altitude, satellites
+    global fixed
+    global latitude
+    global longitude
+    global altitude
+    global satellites
 
     s = data.decode("utf-8")
     parts = s.split(",")
+
+    # variables we will try to collect in each message below
+    rFixed = None
+    rLatitude = None
+    rLatitudeDirection = None
+    rLongitude = None
+    rLongitudeDirection = None
+    rAltitude = None
+    rSatellites = None
+
+    # variables we will plug in to. If each are set, we will update
+    vFixed = None
+    vLatitude = None
+    vLongitude = None
+    vAltitude = None
+    vSatellites = None
     
     if "gpgga" in parts[0].lower():
+        rFixed = parts[1]
+        rLatitude = parts[2]
+        rLatitudeDirection = parts[3]
+        rLongitude = parts[4]
+        rLongitudeDirection = parts[5]
+        rSatellites = parts[7]
+        rAltitude = parts[9]
 
-        # get latitude
-        rlat = raw_coord(parts[2])
-        if parts[3].lower() == "n":
-            latitude = rlat
-        elif parts[3].lower() == "s":
-            latitude = rlat * -1
+    # get collected at
+    vFixed = raw_seconds(rFixed)
 
-        # get longitude
-        rlon = raw_coord(parts[4])
-        if parts[5].lower() == "w":
-            longitude = rlon * -1
-        elif parts[3].lower() == "e":
-            longitude = rlon
+    # get latitude
+    if rLatitude != None and rLatitudeDirection != None:
+        lat = raw_coord(rLatitude)
+        if lat != None:
+            if rLatitudeDirection.lower() == "n":
+                vLatitude = lat
+            elif rLatitudeDirection.lower() == "s":
+                vLatitude = lat * -1
 
-        # altitude (meters)
-        altitude = float(parts[9])
+    # get longitude
+    if rLongitude != None and rLongitudeDirection != None:
+        lon = raw_coord(rLongitude)
+        if lon != None:
+            if rLongitudeDirection.lower() == "e":
+                vLongitude = lon
+            elif rLongitudeDirection.lower() == "w":
+                vLongitude = lon * -1
 
-        # get satelittes
-        satellites = int(parts[7])
+    # get satellites
+    if rSatellites != None:
+        vSatellites = int(rSatellites)
 
-    elif "gprmc" in parts[0].lower():
-        # get latitude
-        rlat = raw_coord(parts[3])
-        if parts[4].lower() == "n":
-            latitude = rlat
-        else:
-            latitude = rlat * -1
+    # get altitude
+    if rAltitude != None:
+        vAltitude = float(rAltitude)
 
-        # get longitude
-        rlon = raw_coord(parts[5])
-        if parts[6].lower() == "w":
-            longitude = rlon * -1
-        else:
-            longitude = rlon
+    # set coordinates - only set all of these if they are all here
+    if vFixed != None and vLatitude != None and vLongitude != None:
+        fixed = vFixed
+        latitude = vLatitude
+        longitude = vLongitude
+        
+    # set the satellites
+    if vSatellites != None:
+        satellites = vSatellites
+    
+    # set the altitude
+    if vAltitude != None:
+        altitude = vAltitude
+
+        
+parse(b'$GPGGA,233517.00,2.38482,N,08227.11282,W,1,06,1.33,25.1,M,,*5A')
+print(latitude)
+print(longitude)
+print(altitude)
