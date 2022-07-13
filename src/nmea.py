@@ -1,3 +1,4 @@
+import math
 
 # ONGOING VARIABLES
 fixed = 0 # number of seconds in UTC time that was collected
@@ -5,6 +6,31 @@ latitude = 0.0
 longitude = 0.0
 altitude = 0.0
 satellites = 0
+speed_mph = 0.0
+
+# returns distance in miles
+# taken from https://github.com/TimHanewich/TimHanewich.Toolkit/blob/master/src/Geo/GeoToolkit.cs
+def distance(lat1:float,lon1:float,lat2:float,lon2:float) -> float:
+
+    # convert to radians
+    lat1r = lat1 / (180 / math.pi)
+    lon1r = lon1 / (180 / math.pi)
+    lat2r = lat2 / (180 / math.pi)
+    lon2r = lon2 / (180 / math.pi)
+
+    con = 3963.0
+    a = math.sin(lat1r)
+    b = math.sin(lat2r)
+    c = math.cos(lat1r)
+    d = math.cos(lat2r)
+    e = math.cos(lon2r - lon1r)
+    a_times_b = a * b
+    c_times_d_times_e = c * d * e
+    ToArcCos = a_times_b + c_times_d_times_e
+    ArcCos = math.acos(ToArcCos)
+    DistanceMiles = con * ArcCos
+
+    return DistanceMiles
 
 # Converts a raw time field to number of seconds
 def raw_seconds(val:str) -> int:
@@ -107,7 +133,10 @@ def parse(data:bytes):
         altitude = vAltitude
 
         
-parse(b'$GPGGA,233517.00,2.38482,N,08227.11282,W,1,06,1.33,25.1,M,,*5A')
+#parse(b'$GPGGA,233517.00,2.38482,N,08227.11282,W,1,06,1.33,25.1,M,,*5A')
+parse(b'GPGGA,185227.00,2712.37950,N,08227.10759,W,1,10,0.95,9.5,M,-26.9,M,,*6F\r\n')
+print(fixed)
 print(latitude)
 print(longitude)
 print(altitude)
+print(satellites)
