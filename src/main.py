@@ -33,12 +33,11 @@ while True:
             # if it decoded successfully, ad it to the line
             if tidbit_txt != None:
                 line = line + tidbit_txt
-
-
-        # is it now fully collected?
-        if "*" in line:
-            print("Marking as fully collected")
-            line_collected = True
+                
+            # is it now fully collected?
+            if "*" in line:
+                print("Marking as fully collected")
+                line_collected = True
 
     # now that the line is collected, parse it
     try:
