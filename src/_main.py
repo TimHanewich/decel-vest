@@ -11,18 +11,39 @@ gpsModule = UART(1, baudrate=9600, tx=Pin(4), rx=Pin(5))
 dlogging.log("Ready to go!")
 
 while True:
+
+    # collect line
+    line = ""
+    line_collected = False
+    while line_collected == False:
+        tidbit = gpsModule.readline()
+        if tidbit != None:
+
+            # Try to decode
+            tidbit_txt = None
+            try:
+                tidbit_txt = tidbit.decode()
+            except:
+                tidbit_txt = None
+            
+            # if it decoded successfully, ad it to the line
+            if tidbit_txt != None:
+                line = line + tidbit_txt
+
+            # is it now fully collected?
+            if "*" in line:
+                line_collected = True
+
+    # now that the line is collected, parse it
     try:
-        buff = gpsModule.readline()
-        if buff != None:
-            nmea.parse(buff)
-            dlogging.log(str(nmea.latitude) + "," + str(nmea.longitude) + " - " + str(nmea.satellites) + " on " + buff.decode())
+        nmea.parse(line)
+        dlogging.log(str(nmea.latitude) + "," + str(nmea.longitude) + " - " + str(nmea.satellites) + " on " + line)
     except Exception as e:
         dlogging.log("Failed: " + str(e))
         try:
-            dlogging.log("From that error: " + buff.decode())
+            dlogging.log("From that error: " + line)
         except:
             pass
-
 
 
 # import strobe_controller

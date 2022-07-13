@@ -53,7 +53,7 @@ def raw_coord(val:str) -> float:
         tr = float(lon_str) + (float(degrees) / 60)
         return tr
 
-def parse(data:bytes):
+def parse(line:str):
 
     global fixed
     global latitude
@@ -62,8 +62,7 @@ def parse(data:bytes):
     global satellites
     global speed_mph
 
-    s = data.decode("utf-8")
-    parts = s.split(",")
+    parts = line.split(",")
 
     # variables we will try to collect in each message below
     rFixed = None
@@ -151,12 +150,13 @@ def parse(data:bytes):
 #### TESTING BELOW ########
         
 # error-causing:
-#parse(b'$GPGGA,233517.00,2.38482,N,08227.11282,W,1,06,1.33,25.1,M,,*5A')
-#parse(b"$GPGGA,170038.00,2712.37832,N,08227.11255,W,1.83,12.1,M,-26.9,M,,*58")
+#parse('$GPGGA,233517.00,2.38482,N,08227.11282,W,1,06,1.33,25.1,M,,*5A')
+#parse("$GPGGA,170038.00,2712.37832,N,08227.11255,W,1.83,12.1,M,-26.9,M,,*58")
+#parse("$GPGGA,1.00,2712.37473,N,08227.10136,W,1,05,1")
 
-# works:
-#parse(b'GPGGA,185227.00,2712.37950,N,08227.10759,W,1,10,0.95,9.5,M,-26.9,M,,*6F\r\n')
+#works:
+#parse('GPGGA,185227.00,2712.37950,N,08227.10759,W,1,10,0.95,9.5,M,-26.9,M,,*6F\r\n')
 
 # driving
-#parse(b'GPGGA,185231.00,2712.455,N,08227.114,W,1,10,0.95,9.5,M,-26.9,M,,*6F\r\n')
-#parse(b'GPGGA,185253.00,2712.39918,N,08226.95452,W,1,10,0.95,9.5,M,-26.9,M,,*6F\r\n')
+#parse('GPGGA,185231.00,2712.455,N,08227.114,W,1,10,0.95,9.5,M,-26.9,M,,*6F\r\n')
+#parse('GPGGA,185253.00,2712.39918,N,08226.95452,W,1,10,0.95,9.5,M,-26.9,M,,*6F\r\n')
