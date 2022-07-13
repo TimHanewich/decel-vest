@@ -30,9 +30,10 @@ while True:
             if tidbit_txt != None:
                 line = line + tidbit_txt
 
-            # is it now fully collected?
-            if "*" in line:
-                line_collected = True
+
+        # is it now fully collected?
+        if "*" in line:
+            line_collected = True
 
     # now that the line is collected, parse it
     try:
