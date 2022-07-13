@@ -13,41 +13,29 @@ dlogging.log("Ready to go!")
 while True:
 
     # collect line
-    dlogging.log("Going to collect line now!")
     line = ""
     line_collected = False
     while line_collected == False:
-        dlogging.log("reading lien now...")
         tidbit = gpsModule.readline()
-        dlogging.log("Line read!")
         if tidbit != None:
-
-            dlogging.log("line was not null!")
 
             # Try to decode
             tidbit_txt = None
             try:
                 tidbit_txt = tidbit.decode()
-                dlogging.log("Decoded!")
             except:
                 tidbit_txt = None
-                dlogging.log("Decoding failed.")
             
             # if it decoded successfully, ad it to the line
             if tidbit_txt != None:
                 line = line + tidbit_txt
-                dlogging.log("Appended to line!")
                 
             # is it now fully collected?
             if "*" in line:
-                dlogging.log("Marking as fully collected")
                 line_collected = True
-        else:
-            dlogging.log("Line was NONE!")
 
     # now that the line is collected, parse it
     try:
-        dlogging.log("Trying to parse now...")
         nmea.parse(line)
         dlogging.log(str(nmea.latitude) + "," + str(nmea.longitude) + " = " + str(nmea.speed_mph))
     except Exception as e:
