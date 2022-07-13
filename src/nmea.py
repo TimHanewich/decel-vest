@@ -144,11 +144,16 @@ def parse(data:bytes):
     if vAltitude != None:
         altitude = vAltitude
 
+
+
+#### TESTING BELOW ########
         
+# error-causing:
 #parse(b'$GPGGA,233517.00,2.38482,N,08227.11282,W,1,06,1.33,25.1,M,,*5A')
-parse(b'GPGGA,185227.00,2712.37950,N,08227.10759,W,1,10,0.95,9.5,M,-26.9,M,,*6F\r\n')
-print(fixed)
-print(latitude)
-print(longitude)
-print(altitude)
-print(satellites)
+
+# works:
+#parse(b'GPGGA,185227.00,2712.37950,N,08227.10759,W,1,10,0.95,9.5,M,-26.9,M,,*6F\r\n')
+
+# driving
+#parse(b'GPGGA,185231.00,2712.455,N,08227.114,W,1,10,0.95,9.5,M,-26.9,M,,*6F\r\n')
+#parse(b'GPGGA,185253.00,2712.39918,N,08226.95452,W,1,10,0.95,9.5,M,-26.9,M,,*6F\r\n')
