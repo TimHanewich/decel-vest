@@ -62,7 +62,7 @@ def parse(line:str):
     global satellites
     global speed_mph
 
-    parts = line.split(",")
+    
 
     # variables we will try to collect in each message below
     rFixed = None
@@ -79,7 +79,19 @@ def parse(line:str):
     vLongitude = None
     vAltitude = None
     vSatellites = None
-    
+
+    # find the parts we will use
+    line_to_use = None
+    try:
+        gpgga_loc = line.lower().index("$gpgga")
+        line_to_use = line[gpgga_loc:9999]
+    except:
+        return
+
+    #split
+    if line_to_use != None:
+        parts = line_to_use.split(",")
+
     if "gpgga" in parts[0].lower():
         rFixed = parts[1]
         rLatitude = parts[2]
@@ -95,29 +107,33 @@ def parse(line:str):
 
     # get latitude
     if rLatitude != None and rLatitudeDirection != None:
-        lat = raw_coord(rLatitude)
-        if lat != None:
-            if rLatitudeDirection.lower() == "n":
-                vLatitude = lat
-            elif rLatitudeDirection.lower() == "s":
-                vLatitude = lat * -1
+        if rLatitude != "" and rLatitudeDirection != "":
+            lat = raw_coord(rLatitude)
+            if lat != None:
+                if rLatitudeDirection.lower() == "n":
+                    vLatitude = lat
+                elif rLatitudeDirection.lower() == "s":
+                    vLatitude = lat * -1
 
     # get longitude
     if rLongitude != None and rLongitudeDirection != None:
-        lon = raw_coord(rLongitude)
-        if lon != None:
-            if rLongitudeDirection.lower() == "e":
-                vLongitude = lon
-            elif rLongitudeDirection.lower() == "w":
-                vLongitude = lon * -1
+        if rLongitude != "" and rLongitudeDirection != "":
+            lon = raw_coord(rLongitude)
+            if lon != None:
+                if rLongitudeDirection.lower() == "e":
+                    vLongitude = lon
+                elif rLongitudeDirection.lower() == "w":
+                    vLongitude = lon * -1
 
     # get satellites
     if rSatellites != None:
-        vSatellites = float(rSatellites)
+        if rSatellites != "":
+            vSatellites = float(rSatellites)
 
     # get altitude
     if rAltitude != None:
-        vAltitude = float(rAltitude)
+        if rAltitude != "":
+            vAltitude = float(rAltitude)
 
     # set coordinates - only set all of these if they are all here
     if vFixed != None and vLatitude != None and vLongitude != None:
