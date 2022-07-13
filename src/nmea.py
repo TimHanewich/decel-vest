@@ -1,13 +1,5 @@
 import math
 
-# ONGOING VARIABLES
-fixed = 0 # number of seconds in UTC time that was collected
-latitude = 0.0
-longitude = 0.0
-altitude = 0.0
-satellites = 0.0
-speed_mph = 0.0
-
 # returns distance in miles
 # taken from https://github.com/TimHanewich/TimHanewich.Toolkit/blob/master/src/Geo/GeoToolkit.cs
 def distance(lat1:float,lon1:float,lat2:float,lon2:float) -> float:
@@ -53,16 +45,16 @@ def raw_coord(val:str) -> float:
         tr = float(lon_str) + (float(degrees) / 60)
         return tr
 
-def parse(line:str):
 
-    global fixed
-    global latitude
-    global longitude
-    global altitude
-    global satellites
-    global speed_mph
+class gps_telemetry:
+    fixed = None #seconds when it was received
+    latitude = None
+    longitude = None
+    altitude = None
+    satellites = None
 
-    
+
+def parse(line:str) -> gps_telemetry:
 
     # variables we will try to collect in each message below
     rFixed = None
@@ -135,28 +127,20 @@ def parse(line:str):
         if rAltitude != "":
             vAltitude = float(rAltitude)
 
+
+    # Time to preapre the return object
+    ToReturn = gps_telemetry()
+
     # set coordinates - only set all of these if they are all here
-    if vFixed != None and vLatitude != None and vLongitude != None:
-
-        # calculate speed?
-        if fixed != None:
-            if fixed != 0:
-                if vFixed > fixed: #time has elapsed since the last measurement
-                    if latitude != None and longitude != None:
-                        dist = distance(latitude, longitude, vLatitude, vLongitude)
-                        hours = (vFixed - fixed) / 60 / 60 # the difference between vFixed and fixed is in seconds, so need to divide by 60 and then 60 again to get it in hours.
-                        mph = dist / hours
-                        speed_mph = mph
-
-        # set values
-        fixed = vFixed
-        latitude = vLatitude
-        longitude = vLongitude
+    if vFixed != None and vLatitude != None and vLongitude != None: 
+        ToReturn.fixed = vFixed
+        ToReturn.latitude = vLatitude
+        ToReturn.longitude = vLongitude
         
     # set the satellites
     if vSatellites != None:
-        satellites = vSatellites
+        ToReturn.satellites = vSatellites
     
     # set the altitude
     if vAltitude != None:
-        altitude = vAltitude
+        ToReturn.altitude = vAltitude
