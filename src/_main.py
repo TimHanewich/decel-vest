@@ -18,6 +18,10 @@ while True:
             dlogging.log(str(nmea.latitude) + "," + str(nmea.longitude) + " - " + str(nmea.satellites) + " on " + buff.decode())
     except Exception as e:
         dlogging.log("Failed: " + str(e))
+        try:
+            dlogging.log("From that error: " + buff.decode())
+        except:
+            pass
 
 
 
