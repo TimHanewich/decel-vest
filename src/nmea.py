@@ -91,7 +91,8 @@ def parse(data:bytes):
         rAltitude = parts[9]
 
     # get collected at
-    vFixed = raw_seconds(rFixed)
+    if rFixed != None:
+        vFixed = raw_seconds(rFixed)
 
     # get latitude
     if rLatitude != None and rLatitudeDirection != None:
