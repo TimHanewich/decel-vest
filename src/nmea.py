@@ -125,11 +125,12 @@ def parse(data:bytes):
         # calculate speed?
         if fixed != None:
             if fixed != 0:
-                if latitude != None and longitude != None:
-                    dist = distance(latitude, longitude, vLatitude, vLongitude)
-                    hours = (vFixed - fixed) / 60 / 60 # the difference between vFixed and fixed is in seconds, so need to divide by 60 and then 60 again to get it in hours.
-                    mph = dist / hours
-                    speed_mph = mph
+                if vFixed > fixed: #time has elapsed since the last measurement
+                    if latitude != None and longitude != None:
+                        dist = distance(latitude, longitude, vLatitude, vLongitude)
+                        hours = (vFixed - fixed) / 60 / 60 # the difference between vFixed and fixed is in seconds, so need to divide by 60 and then 60 again to get it in hours.
+                        mph = dist / hours
+                        speed_mph = mph
 
         # set values
         fixed = vFixed
