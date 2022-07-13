@@ -13,11 +13,15 @@ dlogging.log("Ready to go!")
 while True:
 
     # collect line
+    print("Going to collect line now!")
     line = ""
     line_collected = False
     while line_collected == False:
+        print("reading lien now...")
         tidbit = gpsModule.readline()
         if tidbit != None:
+
+            print("line was not null!")
 
             # Try to decode
             tidbit_txt = None
@@ -33,10 +37,12 @@ while True:
 
         # is it now fully collected?
         if "*" in line:
+            print("Marking as fully collected")
             line_collected = True
 
     # now that the line is collected, parse it
     try:
+        print("Trying to parse now...")
         nmea.parse(line)
         dlogging.log(str(nmea.latitude) + "," + str(nmea.longitude) + " = " + str(nmea.speed_mph))
     except Exception as e:
