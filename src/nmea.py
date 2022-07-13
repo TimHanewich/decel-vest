@@ -144,3 +144,7 @@ def parse(line:str) -> gps_telemetry:
     # set the altitude
     if vAltitude != None:
         ToReturn.altitude = vAltitude
+
+
+    # RETURN!
+    return ToReturn
