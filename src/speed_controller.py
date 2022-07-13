@@ -18,7 +18,7 @@ class speed_controller:
             if self.__last_gps_tele__ != None: # we have old data
                 if tele.fixed > self.__last_gps_tele__.fixed: # this telemetry occurs after the last received
                     if tele.latitude != self.__last_gps_tele__ .latitude or tele.longitude != self.__last_gps_tele__ .longitude: #we have moved from the last position
-                        
+
                         # calculate speed
                         dist = nmea.distance(self.__last_gps_tele__ .latitude, self.__last_gps_tele__ .longitude, tele.latitude, tele.longitude)
                         hours = (tele.fixed - self.__last_gps_tele__ .fixed) / 60 / 60
@@ -38,7 +38,7 @@ class speed_controller:
                                 self.__acceleration_at__ = tele.fixed
 
                         # if speed is not set, just set it
-                        if self.speed_mph != None and self.__speed_at__ != None:
+                        if self.speed_mph == None and self.__speed_at__ == None:
                             self.speed_mph = speed_mph
                             self.__speed_at__ = tele.fixed
 
