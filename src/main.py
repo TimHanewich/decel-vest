@@ -8,7 +8,6 @@ led = Pin(25, Pin.OUT)
 led.value(1)
 
 gpsModule = UART(1, baudrate=9600, tx=Pin(4), rx=Pin(5))
-dlogging.log("Ready to go!")
 
 while True:
 
@@ -34,7 +33,7 @@ while True:
             if "*" in line:
                 line_collected = True
 
-    dlogging.log(line)
+    dlogging.log(line, False)
 
     # now that the line is collected, parse it
     #try:
