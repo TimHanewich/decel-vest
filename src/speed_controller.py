@@ -16,33 +16,36 @@ class speed_controller:
 
     def ingest(self, fix:int, lat:float, lon:float):
 
-        # Set the last time speed was fixed to now if it is blank. Just set it to a second ago.
-        if self.__speed_fix__ == None:
-            self.__speed_fix__ = fix - 1
+        # Only process IF we have data
+        if fix != None and lat != None and lon != None:
 
-        # Try to calculate speed, if we have the data of course
-        if self.__last_fix__ != None and self.__last_lat__ != None and self.__last_lon__ != None:
-            if fix > self.__last_fix__: #this occurs after the data we already have (error prevention)
+            # Set the last time speed was fixed to now if it is blank. Just set it to a second ago.
+            if self.__speed_fix__ == None:
+                self.__speed_fix__ = fix - 1
 
-                # distance calculation
-                distance_miles = nmea.distance(self.__last_lat__, self.__last_lon__, lat, lon)
+            # Try to calculate speed, if we have the data of course
+            if self.__last_fix__ != None and self.__last_lat__ != None and self.__last_lon__ != None:
+                if fix > self.__last_fix__: #this occurs after the data we already have (error prevention)
 
-                # hours calculation
-                hours = (fix - self.__last_fix__) / 60 / 60 # calculate the hours since the last one we received. Divide by 60 twice to go from seconds to hours
+                    # distance calculation
+                    distance_miles = nmea.distance(self.__last_lat__, self.__last_lon__, lat, lon)
 
-                # caculate apparent MPH
-                apparent_speed_mph = distance_miles / hours
+                    # hours calculation
+                    hours = (fix - self.__last_fix__) / 60 / 60 # calculate the hours since the last one we received. Divide by 60 twice to go from seconds to hours
 
-                # calculate the MPH/S to determine if this is feasible
-                apparent_acceleration_mphs = (apparent_speed_mph - self.speed_mph) / (fix - self.__speed_fix__)
+                    # caculate apparent MPH
+                    apparent_speed_mph = distance_miles / hours
 
-                # if the apparent acceleration is feasible, believe it and log the new speed
-                if abs(apparent_acceleration_mphs) < 32:
-                    self.speed_mph = apparent_speed_mph
-                    self.__speed_fix__ = fix
-                    self.acceleration_mphs = apparent_acceleration_mphs
+                    # calculate the MPH/S to determine if this is feasible
+                    apparent_acceleration_mphs = (apparent_speed_mph - self.speed_mph) / (fix - self.__speed_fix__)
 
-        # set them
-        self.__last_fix__ = fix
-        self.__last_lat__ = lat
-        self.__last_lon__ = lon
+                    # if the apparent acceleration is feasible, believe it and log the new speed
+                    if abs(apparent_acceleration_mphs) < 32:
+                        self.speed_mph = apparent_speed_mph
+                        self.__speed_fix__ = fix
+                        self.acceleration_mphs = apparent_acceleration_mphs
+
+            # set them
+            self.__last_fix__ = fix
+            self.__last_lat__ = lat
+            self.__last_lon__ = lon
