@@ -3,15 +3,19 @@ import time
 import dlogging
 import nmea
 import speed_controller
+import strobe_controller
 
 
 # Turn on the LED
 led = Pin(25, Pin.OUT)
 led.value(1)
 
+# Create the GPS Module and speed controller, these will be used in the program
 gpsModule = UART(1, baudrate=9600, tx=Pin(4), rx=Pin(5))
 sc = speed_controller.speed_controller()
 
+
+# continuously collect GPS information and make calculations based on this
 while True:
 
     # collect line
