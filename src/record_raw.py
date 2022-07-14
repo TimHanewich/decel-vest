@@ -35,4 +35,4 @@ while True:
             if "*" in line:
                 line_collected = True
 
-    dlogging.log(line, False)
+    dlogging.log("<" + line + ">", False)
