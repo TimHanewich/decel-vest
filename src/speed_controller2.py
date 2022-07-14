@@ -46,10 +46,3 @@ class speed_controller:
         self.__last_fix__ = fix
         self.__last_lat__ = lat
         self.__last_lon__ = lon
-
-
-sc = speed_controller()
-sc.ingest(30, 27.207589, -82.451905)
-sc.ingest(51, 27.206653, -82.449242)
-print(sc.speed_mph)
-print(sc.acceleration_mphs)
