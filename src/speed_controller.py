@@ -3,48 +3,46 @@ import nmea
 class speed_controller:
 
     # public variables
-    speed_mph = None
-    acceleration_mphs = None
+    speed_mph = 0.0 # starts off at 0
+    acceleration_mphs = 0.0
 
     # private variables
-    __speed_at__ = None
-    __acceleration_at__ = None
-    __last_gps_tele__= None
+    __last_fix__ = None
+    __last_lat__ = None
+    __last_lon__ = None
 
-    def ingest(self, tele:nmea.gps_telemetry):
+    # private variables - used for checking if the calculated speed is legit. Is it feasible?
+    __speed_fix__ = None # the fixed time the speed was determined
 
-        # if speed is not set, just set it to 0
-        if self.speed_mph == None and self.__speed_at__ == None:
-            self.speed_mph = 0
-            self.__speed_at__ = 0
+    def ingest(self, fix:int, lat:float, lon:float):
 
-        # do we have enough to calculate?
-        if tele.fixed != None and tele.latitude != None and tele.longitude != None: #this package contains all of the things we need
-            
-            # calculate speed?
-            if self.__last_gps_tele__ != None: # we have old data
-                if tele.fixed > self.__last_gps_tele__.fixed: # this telemetry occurs after the last received
-                    if tele.latitude != self.__last_gps_tele__ .latitude or tele.longitude != self.__last_gps_tele__ .longitude: #we have moved from the last position
+        # Set the last time speed was fixed to now if it is blank. Just set it to a second ago.
+        if self.__speed_fix__ == None:
+            self.__speed_fix__ = fix - 1
 
-                        # calculate speed
-                        dist = nmea.distance(self.__last_gps_tele__ .latitude, self.__last_gps_tele__ .longitude, tele.latitude, tele.longitude)
-                        hours = (tele.fixed - self.__last_gps_tele__ .fixed) / 60 / 60
-                        speed_mph = dist / hours
+        # Try to calculate speed, if we have the data of course
+        if self.__last_fix__ != None and self.__last_lat__ != None and self.__last_lon__ != None:
+            if fix > self.__last_fix__: #this occurs after the data we already have (error prevention)
 
-                        # Now that we have the current speed, calculate acceleration in mph/s
-                        if self.speed_mph != None and self.__speed_at__ != None:
-                            acc = (speed_mph - self.speed_mph) / (tele.fixed - self.__speed_at__)
-                            
-                            # if the acceleration is deemed realistic, save it
-                            if acc < 32.0:
+                # distance calculation
+                distance_miles = nmea.distance(self.__last_lat__, self.__last_lon__, lat, lon)
 
-                                # save them
-                                self.speed_mph = speed_mph
-                                self.__speed_at__ = tele.fixed
-                                self.acceleration_mphs = acc
-                                self.__acceleration_at__ = tele.fixed
+                # hours calculation
+                hours = (fix - self.__last_fix__) / 60 / 60 # calculate the hours since the last one we received. Divide by 60 twice to go from seconds to hours
 
-                        
+                # caculate apparent MPH
+                apparent_speed_mph = distance_miles / hours
 
-            # Since this has the data we need, save it
-            self.__last_gps_tele__ = tele
+                # calculate the MPH/S to determine if this is feasible
+                apparent_acceleration_mphs = (apparent_speed_mph - self.speed_mph) / (fix - self.__speed_fix__)
+
+                # if the apparent acceleration is feasible, believe it and log the new speed
+                if abs(apparent_acceleration_mphs) < 32:
+                    self.speed_mph = apparent_speed_mph
+                    self.__speed_fix__ = fix
+                    self.acceleration_mphs = apparent_acceleration_mphs
+
+        # set them
+        self.__last_fix__ = fix
+        self.__last_lat__ = lat
+        self.__last_lon__ = lon
