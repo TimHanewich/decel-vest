@@ -5,15 +5,18 @@ import strobe_controller
 from machine import Pin
 
 # Turn on the LED
+print("LED on!")
 led = Pin(25, Pin.OUT)
 led.value(1)
 
 sc = strobe_calculator.strobe_calculator()
 _thread.start_new_thread(strobe_controller.continuous_strobe, ())
 
+print("Opening file...")
 f = open(r"/pyboard/example-data.csv", "r")
 content = f.readlines()
 
+print("Here we go!")
 for line in content:
     if "fix" not in line:
         row = line.split(",")
@@ -30,4 +33,5 @@ for line in content:
         else:
             strobe_controller.mute()
 
+        print("Sleeping...")
         time.sleep(1)
