@@ -38,9 +38,12 @@ class speed_controller:
 
                 # if the apparent acceleration is feasible, believe it and log the new speed
                 if abs(apparent_acceleration_mphs) < 32:
+                    print("Aparent acceleration feasible")
                     self.speed_mph = apparent_speed_mph
                     self.__speed_fix__ = fix
                     self.acceleration_mphs = apparent_acceleration_mphs
+                else:
+                    print("Aparent acceleration NOT FEASIBLE")
 
         # set them
         self.__last_fix__ = fix
