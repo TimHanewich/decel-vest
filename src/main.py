@@ -53,4 +53,4 @@ while True:
             sc.ingest(tele.fixed, tele.latitude, tele.longitude)
 
     # save
-    print("MPH: " + str(sc.speed_mph) + "   MPH/S: " + str(sc.acceleration_mphs))
+    dlogging.log(str(sc.speed_mph) + " = " + str(sc.__last_lat__) + "," + str(sc.__last_lon__))
