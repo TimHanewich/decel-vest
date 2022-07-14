@@ -48,6 +48,9 @@ while True:
 - NMEA Codes: http://aprs.gids.nl/nmea/
 
 ## The need for MicroPython Double Precision
-By default, only single float precision is enabled in micropython. For the GPS-related calculations (distance between two points that uses sin, cos, acos, etc), we need to use double precision numbers. This article describes how to do this: https://community.element14.com/products/raspberry-pi/b/blog/posts/pi-pico-rp2040-micropython-double-precision
+By default, only single float precision is enabled in micropython. For the GPS-related calculations (distance between two points that uses sin, cos, acos, etc), we need to use double precision numbers. 
+
+[MicroPython 1.19.1 with Double Precision floating point numbers enabled (not the default single precision)](micropython-1.19.1-double-precision.uf2)
+
+This article describes how to do this. These are the steps I followed: https://community.element14.com/products/raspberry-pi/b/blog/posts/pi-pico-rp2040-micropython-double-precision
 - Download MicroPython .zip file from: https://micropython.org/download/
-- Change /
