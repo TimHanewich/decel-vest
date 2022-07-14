@@ -13,7 +13,7 @@ sc = strobe_calculator.strobe_calculator()
 _thread.start_new_thread(strobe_controller.continuous_strobe, ())
 
 print("Opening file...")
-f = open(r"/pyboard/example-data.csv", "r")
+f = open(r"/example-data.csv", "r")
 content = f.readlines()
 
 print("Here we go!")
