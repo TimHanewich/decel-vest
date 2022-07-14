@@ -15,6 +15,3 @@ def select_hertz(percentage:float) -> float:
 def hertz_to_seconds(hertz:float) -> float:
     val = 1 / hertz
     return val
-
-d = hertz_to_seconds(0.5)
-print(d)

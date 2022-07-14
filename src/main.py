@@ -51,7 +51,6 @@ while True:
     if tele != None:
         if tele.fixed != None and tele.latitude != None and tele.longitude != None:
             sc.ingest(tele.fixed, tele.latitude, tele.longitude)
-            print("ingested!")
 
     # save
     print("MPH: " + str(sc.speed_mph) + "   MPH/S: " + str(sc.acceleration_mphs))
