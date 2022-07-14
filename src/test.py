@@ -1,4 +1,3 @@
-import csv
 import strobe_calculator
 import time
 import _thread
@@ -13,10 +12,11 @@ sc = strobe_calculator.strobe_calculator()
 _thread.start_new_thread(strobe_controller.continuous_strobe, ())
 
 f = open(r"/pyboard/example-data.csv", "r")
+content = f.readlines()
 
-reader = csv.reader(f, delimiter=",")
-for row in reader:
-    if reader.line_num > 1:
+for line in content:
+    if "fix" not in line:
+        row = line.split(",")
         fix = int(row[0])
         speed = float(row[1])
         lat = float(row[2])
