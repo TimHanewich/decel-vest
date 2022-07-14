@@ -44,6 +44,7 @@ class speed_controller:
                     self.acceleration_mphs = apparent_acceleration_mphs
                 else:
                     print("Aparent acceleration NOT FEASIBLE")
+                    print("P1: " + str(self.__last_lat__) + "," + str(self.__last_lon__ + " --> " + str(lat) + "," + str(lon)))
                     print("Distance: " + str(distance_miles))
                     print("Hours: " + str(hours))
                     print("Apparent speed MPH: " + str(apparent_speed_mph))
