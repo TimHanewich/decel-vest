@@ -1,5 +1,6 @@
 import nmea
 
+# feed it the fixed time, lat, and long, and it will calculate the speed
 class speed_controller:
 
     # public variables
