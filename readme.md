@@ -46,3 +46,8 @@ while True:
 ## Using NEO-6M GPS Module with Raspberry Pi Pico
 - https://microcontrollerslab.com/neo-6m-gps-module-raspberry-pi-pico-micropython/
 - NMEA Codes: http://aprs.gids.nl/nmea/
+
+## The need for MicroPython Double Precision
+By default, only single float precision is enabled in micropython. For the GPS-related calculations (distance between two points that uses sin, cos, acos, etc), we need to use double precision numbers. This article describes how to do this: https://community.element14.com/products/raspberry-pi/b/blog/posts/pi-pico-rp2040-micropython-double-precision
+- Download MicroPython .zip file from: https://micropython.org/download/
+- Change /
