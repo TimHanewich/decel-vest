@@ -45,4 +45,7 @@ while True:
 
     # if it parsed into a gps telemetry, feed it
     if tele != None:
-        dlogging.log(str(tele.fixed) + ": " + str(tele.latitude) + ", " + str(tele.longitude))
+        sc.ingest(tele)
+
+    # save
+    dlogging.log("MPH: " + str(sc.speed_mph) + "   MPH/S: " + str(sc.acceleration_mphs))
