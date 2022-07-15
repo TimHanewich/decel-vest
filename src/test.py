@@ -15,11 +15,13 @@ strobe_controller.mute()
 
 print("Opening file...")
 f = open(r"/example-data.csv", "r")
-content = f.readlines()
 
-print("Here we go!")
-for line in content:
-    print("On this line: " + line)
+while True:
+    line = f.readline()
+
+    if not line:
+        break
+
     if "fix" not in line:
         print("I got a good line!")
         
