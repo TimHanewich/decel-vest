@@ -18,11 +18,20 @@ class strobe_calculator:
     # outputs a recommended hertz
     def ingest(self, fixed:int, speed_mph:float) -> float:
 
+        # take a copy of what the old data is. We do this because we need to use it later, but must set it right after this (before calculations) because the calculations may return a value and therefore terminate the program. So therefore we need to set it up here, not after the calculation
+        old_speed = self.__last_speed_mph__
+        old_fixed = self.__last_fixed__
+
+        # set the old data
+        self.__last_speed_mph__ = speed_mph
+        self.__last_fixed__ = fixed
+
         # if we have old data
-        if self.__last_speed_mph__ != None and self.__last_fixed__ != None:
+        if old_speed != None and old_fixed != None:
 
             # calculate acceleration/deceleration - acceleration would be positie, deceleration would be negative
-            accel_mphs = (speed_mph - self.__last_speed_mph__) / (fixed - self.__last_fixed__)
+            accel_mphs = (speed_mph - old_speed) / (fixed - old_fixed)
+            print("Accel: " + str(accel_mphs) + " from " + str(old_speed) + " to " + str(speed_mph))
 
             # if we are currently in decelerating mode, check to see if it is over. If it is over, return none
             if self.__mode__ == Decelerating: # we are currently decelerating
@@ -36,8 +45,8 @@ class strobe_calculator:
 
             # if we are currently cruising, check to see if we are now decelerating
             if self.__mode__ == AwaitingDeceleration: #we are waiting for something to happen
-                if speed_mph < self.__last_speed_mph__: # we are only looking for a deceleration to happen
-                    if self.__last_speed_mph__ > 30: # only consider decelerations from above this MPH
+                if speed_mph < old_speed: # we are only looking for a deceleration to happen
+                    if old_speed > 30: # only consider decelerations from above this MPH
 
                         # only continue if deceleration is greater than than a certain amount
                         if accel_mphs <= (settings.min_decel * -1): # if we are losing more than this many MPH per second 
@@ -54,7 +63,3 @@ class strobe_calculator:
                 decel_percent = max(decel_percent, 0) #make sure it doesn't fall below 0%
                 hz = strobe_tools.select_hertz(decel_percent) # CALCULATING THE VALUE TO RETURN
                 return hz
-
-        # set
-        self.__last_speed_mph__ = speed_mph
-        self.__last_fixed__ = fixed
