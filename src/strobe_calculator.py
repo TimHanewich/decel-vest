@@ -1,4 +1,3 @@
-from turtle import speed
 import nmea
 import strobe_tools
 import settings
