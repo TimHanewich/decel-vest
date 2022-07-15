@@ -20,7 +20,9 @@ while True:
     print("Reading line...")
     line = f.readline()
 
+    print("Checking if not...")
     if not line:
+        print("breaking! bye!")
         break
 
     if "fix" not in line:
