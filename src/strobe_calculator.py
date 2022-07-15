@@ -64,7 +64,6 @@ class strobe_calculator:
 
             # calculate acceleration/deceleration - acceleration would be positie, deceleration would be negative
             accel_mphs = (speed_mph - old_speed) / (fixed - old_fixed)
-            print(str(fixed) + " - " + "Accel: " + str(accel_mphs) + " from " + str(old_speed) + " to " + str(speed_mph))
 
             # if we are currently in decelerating mode, check to see if it is over. If it is over, return none
             if self.__mode__ == Decelerating: # we are currently decelerating
@@ -90,10 +89,10 @@ class strobe_calculator:
                             # clear the speed log
                             self.__fixed_speed_buff__.clear()
 
-                            # log the old speed (that is out starting point)
+                            # log the old speed (that is our starting point)
                             fs = fixed_speed()
-                            fs.fixed = self.__last_fixed__
-                            fs.speed = self.__last_speed_mph__
+                            fs.fixed = old_fixed
+                            fs.speed = old_speed
                             self.add_fixed_speed(fs)
                             
                             # mark the status as decelerating
