@@ -14,9 +14,7 @@ def continuous_strobe():
 
     while True:
         if muted == False:
-            strobe_output.value(1)
-            time.sleep(wait_time)
-            strobe_output.value(0)
+            strobe_output.toggle()
             time.sleep(wait_time)
         else:
             strobe_output.value(0)
