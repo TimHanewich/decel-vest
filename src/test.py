@@ -20,7 +20,7 @@ content = f.readlines()
 print("Here we go!")
 for line in content:
     if "fix" not in line:
-
+        print("I got a good line!")
         
 
         row = line.split(",")
@@ -29,6 +29,8 @@ for line in content:
         lat = float(row[2])
         lon = float(row[3])
         sats = float(row[4])
+
+        print("All converted!")
 
         print("Now on: " + str(fix))
         
