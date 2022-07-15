@@ -17,6 +17,7 @@ print("Opening file...")
 f = open(r"/example-data.csv", "r")
 
 while True:
+    print("Reading line...")
     line = f.readline()
 
     if not line:
