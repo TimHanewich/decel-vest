@@ -21,7 +21,7 @@ class strobe_calculator:
 
     # tracking of speed (avg)
     __fixed_speed_buff__ = []
-    __buff_len__ = 3 # how many speed logs will be considered as a buffer
+    __buff_len__ = 9999 # how many speed logs will be considered as a buffer. You can rasie this to an extremely large number (like 9999) for it to just average out the entirety of the deceleration. So no longer how long the deceleration is, the hz of the strobe will be calculated on the average deceleration from the start of the deceleration to the end.
 
     def add_fixed_speed(self, fs:fixed_speed):
         self.__fixed_speed_buff__.append(fs)
