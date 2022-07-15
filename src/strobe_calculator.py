@@ -7,6 +7,10 @@ import settings
 AwaitingDeceleration = 0, # nothing is happening right now
 Decelerating = 1
 
+class fixed_speed:
+    fixed = 0.0 #time stamp of when the speed was detected
+    speed = 0.0 #speed that was detected
+
 
 class strobe_calculator:
 
@@ -14,6 +18,34 @@ class strobe_calculator:
     __last_speed_mph__ = None #the speed that was most recently received
     __last_fixed__ = None #the last fixed time that the speed was received at
     __mode__ = AwaitingDeceleration
+
+    # tracking of speed (avg)
+    __fixed_speed_buff__ = []
+    __buff_len__ = 3
+
+    def add_fixed_speed(self, fs:fixed_speed):
+        self.__fixed_speed_buff__.append(fs)
+        while len(self.__fixed_speed_buff__) > self.__buff_len__:
+            self.__fixed_speed_buff__.pop(0)
+
+    def avg_accel(self):
+
+        if len(self.__fixed_speed_buff__) > 1:
+            # Calculate by calculating the acceleration between the first and last one. This is apparently the same as the one above
+            # get speeds
+            speed1 = self.__fixed_speed_buff__[len(self.__fixed_speed_buff__)-1].speed
+            speed2 = self.__fixed_speed_buff__[0].speed
+
+            # get fixed
+            fixed1 = self.__fixed_speed_buff__[len(self.__fixed_speed_buff__)-1].fixed
+            fixed2 = self.__fixed_speed_buff__[0].fixed
+
+            # calculate accel
+            accel = (speed2 - speed1) / (fixed2 - fixed1)
+            return accel
+        else:
+            return None
+        
 
     # outputs a recommended hertz
     def ingest(self, fixed:int, speed_mph:float) -> float:
