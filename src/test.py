@@ -19,6 +19,7 @@ content = f.readlines()
 
 print("Here we go!")
 for line in content:
+    print("On this line: " + line)
     if "fix" not in line:
         print("I got a good line!")
         
