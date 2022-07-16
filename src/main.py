@@ -70,4 +70,4 @@ def process_gps_tele(tele:nmea.gps_telemetry):
 # start the gps driver
 gps = gps_driver.gps_driver()
 gps.set_callback(process_gps_tele)
-_thread.start_new_thread(gps.start(), ())
+_thread.start_new_thread(gps.start, ())
