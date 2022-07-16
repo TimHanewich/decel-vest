@@ -45,6 +45,9 @@ dlogging.log("fix_speed_lat_lon_sats_hz", False)
 # write the function that will handle the receiving of gps
 def process_gps_tele(tele:nmea.gps_telemetry):
     try:
+
+        dlogging.log("Received tele!")
+
         global sc
         global strobe_calc
 
@@ -54,18 +57,24 @@ def process_gps_tele(tele:nmea.gps_telemetry):
                 # calculate  the speed
                 sc.ingest(tele.fixed, tele.latitude, tele.longitude) #ingest the data to get the speed
         
-                # calculate the appropriate hertz of the light
-                hz = strobe_calc.ingest(tele.fixed, sc.speed_mph)
-                if hz != None:
-                    strobe_controller.set_hertz(hz)
-                    strobe_controller.unmute()
-                else:
-                    strobe_controller.mute()
+                # if we have the speed (which we should, try to calculate the strobe speed)
+                if sc.speed_mph != None:
 
-                # log the data
-                dlogging.log(str(tele.fixed) + "_" + str(sc.speed_mph) + "_" + str(tele.latitude) + "_" + str(tele.longitude) + "_" + str(tele.satellites) + "_" + str(hz), False)
+                    # calculate the appropriate hertz of the light
+                    hz = strobe_calc.ingest(tele.fixed, sc.speed_mph)
+                    if hz != None:
+                        strobe_controller.set_hertz(hz)
+                        strobe_controller.unmute()
+                    else:
+                        strobe_controller.mute()
+
+                    # log the data
+                    dlogging.log(str(tele.fixed) + "_" + str(sc.speed_mph) + "_" + str(tele.latitude) + "_" + str(tele.longitude) + "_" + str(tele.satellites) + "_" + str(hz), False)
+    
     except Exception as e:
         dlogging.log("Critical error! Msg: " + str(e))
+
+    
 
 # start the gps driver
 gps = gps_driver.gps_driver()
