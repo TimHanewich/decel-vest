@@ -1,5 +1,6 @@
 from machine import Pin, UART
 import nmea
+import time
 
 # handles the parsing of data from the NEO-6M module to a telemtry object.
 class gps_driver:
@@ -12,7 +13,7 @@ class gps_driver:
         if self.__gpsModule__ == None:
             self.__gpsModule__ = UART(1, baudrate=9600, tx=Pin(4), rx=Pin(5))
 
-    def get_telemetry(self) -> nmea.gps_telemetry:
+    def get_telemetry(self, timeout_ms:int = 5000) -> nmea.gps_telemetry:
 
         # if the gpsModule hasn't been set up, return none
         if self.__gpsModule__ == None:
@@ -20,7 +21,8 @@ class gps_driver:
 
         # get the to return object
         ToReturn = None
-        while ToReturn == None:
+        StartedSearchAt = time.ticks_ms()
+        while ToReturn == None and (time.ticks_ms() - StartedSearchAt) < timeout_ms:
             # collect line
             line = ""
             line_collected = False
