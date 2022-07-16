@@ -4,22 +4,28 @@ import nmea
 # handles the parsing of data from the NEO-6M module to a telemtry object.
 class gps_driver:
 
-    # call back function when telemetry is received
-    __callback__ = None
 
-    def start(self):
+    # gpsModule object - set up UART (serial) communication
+    __gpsModule__ = None
 
-        # Create the GPS Module and speed controller, these will be used in the program
-        gpsModule = UART(1, baudrate=9600, tx=Pin(4), rx=Pin(5))
+    def setup(self):
+        if self.__gpsModule__ == None:
+            self.__gpsModule__ = UART(1, baudrate=9600, tx=Pin(4), rx=Pin(5))
 
-        # continuously collect GPS information and make calculations based on this
-        while True:
+    def get_telemetry(self) -> nmea.gps_telemetry:
 
+        # if the gpsModule hasn't been set up, return none
+        if self.__gpsModule__ == None:
+            return None
+
+        # get the to return object
+        ToReturn = None
+        while ToReturn == None:
             # collect line
             line = ""
             line_collected = False
             while line_collected == False:
-                tidbit = gpsModule.readline()
+                tidbit = self.__gpsModule__.readline()
                 if tidbit != None:
 
                     # Try to decode
@@ -46,8 +52,6 @@ class gps_driver:
 
             # if it parsed into a gps telemetry, feed it
             if tele != None:
-                if self.__callback__ != None:
-                    self.__callback__(tele)
-
-    def set_callback(self, cb):
-        self.__callback__ = cb
+                ToReturn = tele
+            
+        return ToReturn
