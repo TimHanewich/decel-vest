@@ -91,3 +91,8 @@ gps = gps_driver.gps_driver()
 gps.set_callback(process_gps_tele)
 _thread.start_new_thread(gps.start(), ())
 ```
+
+## The Transistor-boosted LED light current:
+Current draw from the battery is 0.15A using the DC-DC boost converter (~3.25V to 11.5V).
+The LED bulb normally only draws 0.041A, but it draws more current due to the need to boost the voltage.
+The current draw into the transistor base (from the GPIO pin) is < 0.001A, extremely small. But **NEEDS TO GO THROUGH A 10,000 OHM RESISTOR**!
