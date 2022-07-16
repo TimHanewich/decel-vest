@@ -2,6 +2,7 @@ import machine
 import settings
 import time
 import strobe_tools
+import dlogging
 
 # VARIABLES
 wait_time = 1 #this sets the wait time in between each flash
@@ -26,8 +27,14 @@ def set_hertz(hz:float):
     wait_time = strobe_tools.hertz_to_seconds(hz)
 
 def mute():
-    global muted
-    muted = True
+    try:
+        dlogging.log("Making variable global")
+        global muted
+        dlogging.log("Turning muted to true")
+        muted = True
+        dlogging.log("Success!")
+    except Exception as e:
+        dlogging.log("Failure while muting: " + str(e))
 
 def unmute():
     global muted
