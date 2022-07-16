@@ -6,10 +6,30 @@ import speed_controller
 import dlogging
 import strobe_calculator
 import strobe_controller
+import settings
+import time
 
-# Set up the on-board LED
+#set up LED pin
 led = Pin(25, Pin.OUT)
+
+# flash the strobe light and the onboard LED at the same time to confirm it is on
+strobe_pin = Pin(settings.gpio_strobe, Pin.OUT)
+strobe_pin.value(1)
 led.value(1)
+time.sleep(0.5)
+strobe_pin.value(0)
+led.value(0)
+time.sleep(0.5)
+strobe_pin.value(1)
+led.value(1)
+time.sleep(0.5)
+strobe_pin.value(0)
+led.value(0)
+time.sleep(0.5)
+
+# turn on LED hold
+led.value(1)
+
 
 # start the strobe light controller
 _thread.start_new_thread(strobe_controller.continuous_strobe, ())
