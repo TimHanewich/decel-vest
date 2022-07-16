@@ -41,9 +41,9 @@ sc = speed_controller.speed_controller()
 strobe_calc = strobe_calculator.strobe_calculator()
 
 # set up the GPS driver
-dlogging.log("Setting up GPS driver...")
+#dlogging.log("Setting up GPS driver...")
 gps.setup()
-dlogging.log("GPS driver set up!")
+#dlogging.log("GPS driver set up!")
 
 # print the headers
 dlogging.log("fix_speed_lat_lon_sats_hz", False)
@@ -52,33 +52,33 @@ while True:
     try:
 
         # get telemetry from the gps driver
-        dlogging.log("Getting telemetry")
+        #dlogging.log("Getting telemetry")
         tele = gps.get_telemetry(3000)
-        dlogging.log("Telemetry received!")
+        #dlogging.log("Telemetry received!")
 
         if tele != None:
-            dlogging.log("Telemetry was not None!")
+            #dlogging.log("Telemetry was not None!")
             if tele.fixed != None and tele.latitude != None and tele.longitude != None:
-                dlogging.log("We have the necessary data...")
+                #dlogging.log("We have the necessary data...")
                 
                 # calculate  the speed
-                dlogging.log("Calculating speed...")
+                #dlogging.log("Calculating speed...")
                 sc.ingest(tele.fixed, tele.latitude, tele.longitude) #ingest the data to get the speed
-                dlogging.log("sc ingested.")
+                #dlogging.log("sc ingested.")
         
                 # if we have the speed (which we should, try to calculate the strobe speed)
                 if sc.speed_mph != None:
-                    dlogging.log("We have an MPH!")
+                    #dlogging.log("We have an MPH!")
 
                     # calculate the appropriate hertz of the light
-                    dlogging.log("Going to calculate hz")
+                    #dlogging.log("Going to calculate hz")
                     hz = strobe_calc.ingest(tele.fixed, sc.speed_mph)
                     if hz != None:
-                        dlogging.log("Hertz was something: " + str(hz))
+                        #dlogging.log("Hertz was something: " + str(hz))
                         strobe_controller.set_hertz(hz)
                         strobe_controller.unmute()
                     else:
-                        dlogging.log("hertz was nothing")
+                        #dlogging.log("hertz was nothing")
                         strobe_controller.mute()
 
                     # log the data
