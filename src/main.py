@@ -36,20 +36,23 @@ _thread.start_new_thread(strobe_controller.continuous_strobe, ())
 strobe_controller.mute()
 
 # create the variables that we will use
+gps = gps_driver.gps_driver()
 sc = speed_controller.speed_controller()
 strobe_calc = strobe_calculator.strobe_calculator()
+
+# set up the GPS driver
+dlogging.log("Setting up GPS driver...")
+gps.setup()
+dlogging.log("GPS driver set up!")
 
 # print the headers
 dlogging.log("fix_speed_lat_lon_sats_hz", False)
 
-# write the function that will handle the receiving of gps
-def process_gps_tele(tele:nmea.gps_telemetry):
+while True:
     try:
 
-        dlogging.log("Received tele!")
-
-        global sc
-        global strobe_calc
+        # get telemetry from the gps driver
+        tele = gps.get_telemetry(3000)
 
         if tele != None:
             if tele.fixed != None and tele.latitude != None and tele.longitude != None:
@@ -73,14 +76,3 @@ def process_gps_tele(tele:nmea.gps_telemetry):
     
     except Exception as e:
         dlogging.log("Critical error! Msg: " + str(e))
-
-    
-
-# start the gps driver
-dlogging.log("Starting GPS driver...")
-gps = gps_driver.gps_driver()
-dlogging.log("Setting GPS driver callback...")
-gps.set_callback(process_gps_tele)
-dlogging.log("Launching GPS driver thread...")
-_thread.start_new_thread(gps.start, ())
-dlogging.log("GPS driver started!")
