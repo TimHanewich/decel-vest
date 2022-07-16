@@ -79,6 +79,8 @@ def process_gps_tele(tele:nmea.gps_telemetry):
 # start the gps driver
 dlogging.log("Starting GPS driver...")
 gps = gps_driver.gps_driver()
+dlogging.log("Setting GPS driver callback...")
 gps.set_callback(process_gps_tele)
+dlogging.log("Launching GPS driver thread...")
 _thread.start_new_thread(gps.start, ())
 dlogging.log("GPS driver started!")
