@@ -62,5 +62,5 @@ class gps_driver:
                 
             return ToReturn
         except Exception as e:
-            dlogging.log("Error while getting tele: " + str(e))
+            print("Error while getting tele: " + str(e))
             return None
