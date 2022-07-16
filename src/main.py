@@ -7,7 +7,7 @@ import dlogging
 import strobe_calculator
 import strobe_controller
 
-# Turn on the LED
+# Set up the on-board LED
 led = Pin(25, Pin.OUT)
 led.value(1)
 
