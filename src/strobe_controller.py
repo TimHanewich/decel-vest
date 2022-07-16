@@ -28,13 +28,14 @@ def set_hertz(hz:float):
 
 def mute():
     try:
-        print("Making variable global")
+        #print("Making variable global")
         global muted
-        print("Turning muted to true")
+        #print("Turning muted to true")
         muted = True
-        print("Success!")
+        #print("Success!")
     except Exception as e:
-        print("Failure while muting: " + str(e))
+        pass
+        #print("Failure while muting: " + str(e))
 
 def unmute():
     global muted

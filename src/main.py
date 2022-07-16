@@ -52,37 +52,37 @@ while True:
     try:
 
         # get telemetry from the gps driver
-        print("Getting telemetry")
+        #print("Getting telemetry")
         tele = gps.get_telemetry(3000)
-        print("Telemetry received!")
+        #print("Telemetry received!")
 
         if tele != None:
-            print("Telemetry was not None!")
+            #print("Telemetry was not None!")
             if tele.fixed != None and tele.latitude != None and tele.longitude != None:
-                print("We have the necessary data...")
+                #print("We have the necessary data...")
                 
                 # calculate  the speed
-                print("Calculating speed...")
+                #print("Calculating speed...")
                 sc.ingest(tele.fixed, tele.latitude, tele.longitude) #ingest the data to get the speed
-                print("sc ingested.")
+                #print("sc ingested.")
         
                 # if we have the speed (which we should, try to calculate the strobe speed)
                 if sc.speed_mph != None:
-                    print("We have an MPH!")
+                    #print("We have an MPH!")
 
                     # calculate the appropriate hertz of the light
-                    print("Going to calculate hz")
+                    #print("Going to calculate hz")
                     hz = strobe_calc.ingest(tele.fixed, sc.speed_mph)
                     if hz != None:
-                        print("Hertz was something: " + str(hz))
+                        #print("Hertz was something: " + str(hz))
                         strobe_controller.set_hertz(hz)
                         strobe_controller.unmute()
                     else:
-                        print("hertz was nothing")
+                        #print("hertz was nothing")
                         strobe_controller.mute()
 
                     # log the data
-                    print(str(tele.fixed) + "_" + str(sc.speed_mph) + "_" + str(tele.latitude) + "_" + str(tele.longitude) + "_" + str(tele.satellites) + "_" + str(hz), False)
+                    print(str(tele.fixed) + "_" + str(sc.speed_mph) + "_" + str(tele.latitude) + "_" + str(tele.longitude) + "_" + str(tele.satellites) + "_" + str(hz))
     
     except Exception as e:
         print("GOT AN ERROR!")
