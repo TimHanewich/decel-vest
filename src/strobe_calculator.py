@@ -80,7 +80,7 @@ class strobe_calculator:
             # if we are currently cruising, check to see if we are now decelerating
             if self.__mode__ == AwaitingDeceleration: #we are waiting for something to happen
                 if speed_mph < old_speed: # we are only looking for a deceleration to happen
-                    if old_speed > 30: # only consider decelerations from above this MPH
+                    if old_speed >= settings.min_decel_trigger_speed_mph: # only consider decelerations from above this MPH
 
                         # only continue if deceleration is greater than than a certain amount
                         if accel_mphs <= (settings.min_decel_trigger * -1): # if we are losing more than this many MPH per second, we are NOW DECELERTING!
