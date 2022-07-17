@@ -29,7 +29,7 @@ time.sleep(2)
 # cycle down
 print("Going to cycle down...")
 strobe_controller.unmute()
-while hz > settings.max_hz:
+while hz > settings.min_hz:
     print(hz)
     strobe_controller.set_hertz(hz)
     hz = hz - 1
