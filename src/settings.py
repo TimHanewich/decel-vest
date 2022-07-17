@@ -1,6 +1,6 @@
 # Strobe settings
 gpio_strobe = 1
-max_hz = 20
+max_hz = 18
 min_hz = 2
 
 # Deceleration Settings - TRIGGER - in MPH/S. For example, 1 would mean losing 1 MPH per second (decelerating)
