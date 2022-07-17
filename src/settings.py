@@ -3,6 +3,9 @@ gpio_strobe = 1
 max_hz = 18
 min_hz = 2
 
+# GPS settings
+gpio_gps_rx = 5
+
 # Deceleration Settings - TRIGGER - in MPH/S. For example, 1 would mean losing 1 MPH per second (decelerating)
 min_decel_trigger_speed_mph = 20 # in order for the deceleration to be triggered, you must be decelerating from a speed BEYOND this number
 min_decel_trigger = 1.0 # the minimum deceleration that has to occur for it to be registered as a deceleration and thus enter in decelerating mode

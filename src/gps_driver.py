@@ -2,6 +2,7 @@ from machine import Pin, UART
 import nmea
 import time
 import dlogging
+import settings
 
 # handles the parsing of data from the NEO-6M module to a telemtry object.
 class gps_driver:
@@ -12,7 +13,7 @@ class gps_driver:
 
     def setup(self):
         if self.__gpsModule__ == None:
-            self.__gpsModule__ = UART(1, baudrate=9600, tx=Pin(4), rx=Pin(5))
+            self.__gpsModule__ = UART(1, baudrate=9600, tx=Pin(4), rx=Pin(settings.gpio_gps_rx))
 
     def get_telemetry(self, timeout_ms:int = 5000) -> nmea.gps_telemetry:
 
