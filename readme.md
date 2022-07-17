@@ -96,3 +96,6 @@ _thread.start_new_thread(gps.start(), ())
 Current draw from the battery is 0.15A using the DC-DC boost converter (~3.25V to 11.5V).
 The LED bulb normally only draws 0.041A, but it draws more current due to the need to boost the voltage.
 The current draw into the transistor base (from the GPIO pin) is < 0.001A, extremely small. But **NEEDS TO GO THROUGH A 10,000 OHM RESISTOR**!
+
+## Searching for the right LED
+- Circular, like [this](https://www.amazon.com/Landscape-Halogen-Equivalent-Daylight-Recessed/dp/B07N86919J/ref=sr_1_58?crid=2HQB8UFH497GN&keywords=BAOMING+G4+led+red&qid=1658066241&sprefix=baoming+g4+led+re%2Caps%2C72&sr=8-58), but needs to be red.
