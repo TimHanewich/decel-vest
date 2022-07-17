@@ -11,7 +11,7 @@ _thread.start_new_thread(strobe_controller.continuous_strobe, ())
 print("Going to cycle up...")
 hz = settings.min_hz
 strobe_controller.unmute()
-while hz < settings.max_hz:
+while hz <= settings.max_hz:
     print(hz)
     strobe_controller.set_hertz(hz)
     hz = hz + 1
@@ -29,7 +29,7 @@ time.sleep(2)
 # cycle down
 print("Going to cycle down...")
 strobe_controller.unmute()
-while hz > settings.min_hz:
+while hz >= settings.min_hz:
     print(hz)
     strobe_controller.set_hertz(hz)
     hz = hz - 1
