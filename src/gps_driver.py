@@ -15,6 +15,43 @@ class gps_driver:
         if self.__gpsModule__ == None:
             self.__gpsModule__ = UART(1, baudrate=9600, tx=Pin(4), rx=Pin(settings.gpio_gps_rx))
 
+
+    def collect_nmea_sentence(self, timeout_ms:int = 5000):
+        
+        # if the gpsModule hasn't been set up, return none
+        if self.__gpsModule__ == None:
+            return None
+        
+        # collect line
+        line = ""
+        line_collected = False
+        StartedCollectionAt = time.ticks_ms()
+        while line_collected == False and (time.ticks_ms() - StartedCollectionAt) < timeout_ms:
+            tidbit = self.__gpsModule__.readline()
+            if tidbit != None:
+
+                # Try to decode
+                tidbit_txt = None
+                try:
+                    tidbit_txt = tidbit.decode()
+                except:
+                    tidbit_txt = None
+                
+                # if it decoded successfully, ad it to the line
+                if tidbit_txt != None:
+                    line = line + tidbit_txt
+                    
+                # is it now fully collected?
+                if "*" in line:
+                    line_collected = True
+
+        # at this point, we have either collected it successfully (the hope) or reached the timeout.
+        if line != "" and "*" in line:
+            return line
+        else: # a sentence was not collected successfully
+            return None
+        
+
     def get_telemetry(self, timeout_ms:int = 5000) -> nmea.gps_telemetry:
 
         try:
