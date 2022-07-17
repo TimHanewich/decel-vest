@@ -32,8 +32,9 @@ led.value(1)
 
 
 # start the strobe light controller
-_thread.start_new_thread(strobe_controller.continuous_strobe, ())
 strobe_controller.mute()
+_thread.start_new_thread(strobe_controller.continuous_strobe, ())
+
 
 # create the variables that we will use
 gps = gps_driver.gps_driver()
