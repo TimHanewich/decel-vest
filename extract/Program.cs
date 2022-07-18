@@ -10,9 +10,14 @@ namespace extract
 
         public static void Main(string[] args)
         {
-            
 
-            CompilePolygons();
+            Point[][]? points = JsonSerializer.Deserialize<Point[][]>(System.IO.File.ReadAllText(@"C:\Users\tahan\Downloads\polygons.json"));
+            if (points != null)
+            {
+                Point p = Point.Parse("27.207639, -82.451911");
+                bool i = Point.IsPointInPolygon(p, points[0]);
+                Console.WriteLine(i);
+            }
 
         }
 
