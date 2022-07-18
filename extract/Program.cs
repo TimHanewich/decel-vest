@@ -10,30 +10,34 @@ namespace extract
 
         public static void Main(string[] args)
         {
-            Point p1 = new Point();
-            p1.X = 27.207793f;
-            p1.Y = -82.451598f;
-            Point p2 = new Point();
-            p2.X = 27.207680f;
-            p2.Y = -82.451278f;
-            Point p3 = new Point();
-            p3.X = 27.207965f;
-            p3.Y = -82.451158f;
-            Point p4 = new Point();
-            p4.X = 27.208071f;
-            p4.Y = -82.451475f;
+            
+
             List<Point> points = new List<Point>();
-            points.Add(p1);
-            points.Add(p2);
-            points.Add(p3);
-            points.Add(p4);
+            points.Add(Point.Parse("27.207955, -82.455660"));
+            points.Add(Point.Parse("27.208937, -82.454795"));
+            points.Add(Point.Parse("27.208630, -82.451515"));
+            points.Add(Point.Parse("27.209575, -82.449498"));
+            points.Add(Point.Parse("27.210023, -82.445249"));
+            points.Add(Point.Parse("27.208487, -82.443983"));
+            points.Add(Point.Parse("27.200403, -82.442049"));
+            points.Add(Point.Parse("27.200479, -82.446770"));
+            points.Add(Point.Parse("27.202805, -82.447825"));
+            points.Add(Point.Parse("27.203718, -82.448206"));
+            points.Add(Point.Parse("27.203906, -82.448469"));
+            points.Add(Point.Parse("27.204538, -82.449429"));
+            points.Add(Point.Parse("27.206050, -82.452354"));
+            points.Add(Point.Parse("27.207363, -82.451920"));
+            points.Add(Point.Parse("27.207476, -82.452239"));
+            points.Add(Point.Parse("27.206152, -82.452833"));
+            points.Add(Point.Parse("27.207280, -82.455212"));
+            points.Add(Point.Parse("27.207955, -82.455660"));
 
-            Point gps = new Point();
-            gps.X = 27.207865f;
-            gps.Y = -82.451644f;
+            Console.WriteLine(JsonSerializer.Serialize(points.ToArray()));
 
-            bool inside = Point.IsPointInPolygon(gps, points.ToArray());
-            Console.WriteLine(inside);
+            Point p = Point.Parse("27.207639, -82.451911");
+
+            bool i = Point.IsPointInPolygon(p, points.ToArray());
+            Console.WriteLine(i);
 
         }
     }
