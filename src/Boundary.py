@@ -28,4 +28,34 @@ def parse_file(path:str):
     areas = parse_json(content1)
     return areas
 
+
+def IsPointInPolygon(p:Point, polygon):
+    
+    minX = polygon[0].X
+    maxX = polygon[0].X
+    minY = polygon[0].Y
+    maxY = polygon[0].Y
+    for poly in polygon:
+        if poly != polygon[0]:
+            minX = min(poly.X, minX)
+            maxX = max(poly.X, maxX)
+            minY = min(poly.Y, minY)
+            maxY = max(poly.Y, maxY)
+
+    if p.X < minX or p.X > maxX or p.Y < minY or p.Y > maxY:
+        return False
+
+    inside = False
+    j = len(polygon) - 1
+    for i in range(0, len(polygon)):
+        if ((polygon[i].Y > p.Y) != (polygon[j].Y > p.Y)) and p.X < (polygon[j].X - polygon[i].X) * (p.Y - polygon[i].Y) / (polygon[j].Y - polygon[i].Y) + polygon[i].X:
+            inside = not inside
+
+        # increment
+        j = i
+
+    return inside
+
+
+
     
