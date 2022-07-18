@@ -156,6 +156,33 @@ def parse(line:str) -> gps_telemetry:
     # RETURN!
     return ToReturn
 
+def is_gprmc(line:str):
+    if "gprmc" in line.lower():
+        return True
+    else:
+        return False
+
+def get_gprmc_fixed(line:str):
+
+    # find where it starts
+    loc = None
+    try:
+        loc = line.lower().index("gprmc")
+    except:
+        return None
+
+    # get the line and parts
+    gprmc_part = line[loc:999]
+    parts = gprmc_part.split(",")
+
+    # ticks
+    timestr = parts[1]
+    try:
+        seconds = raw_seconds(timestr)
+        return seconds
+    except:
+        return None
+
 # MUST provide ONLY a $GPRMC line (it uses the knots speed in the GPRMC line)
 def get_speed_mph(gprmc_line:str) -> float:
 
@@ -177,4 +204,3 @@ def get_speed_mph(gprmc_line:str) -> float:
         return speed_mph
     except:
         return None
-
