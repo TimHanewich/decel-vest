@@ -6,7 +6,7 @@ record_raw = 3
 strobe_solid = 4
 
 # RUN MODE
-EXECUTION_MODE = strobe_test
+EXECUTION_MODE = strobe_solid
 
 if EXECUTION_MODE == decel_vest:
     import decel_vest
