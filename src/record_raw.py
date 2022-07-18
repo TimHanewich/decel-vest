@@ -8,4 +8,4 @@ gps.setup()
 while True:
     sentence = gps.collect_nmea_sentence()
     if sentence != None:
-        dlogging.log(sentence, True)
+        dlogging.log(sentence, False)
