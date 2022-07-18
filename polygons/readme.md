@@ -1,0 +1,3 @@
+Every file in the [polygon folder](./polygons/) is a JSON file that contains a series of Points (X + Y, representing Latitude and Longitude). These represent the bounding box around an area on earth. 
+
+These will be compiled into a larger JSON document, containing a series of series of points. This will be included on the memory of the Raspberry Pi Pico and checked against to determine if the "pin lane" lights should be flashing.
