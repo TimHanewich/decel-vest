@@ -60,9 +60,13 @@ For whatever reason, MicroPython reads the new lines in a CSV file that is gener
 
 
 ## The Transistor-boosted LED light current:
-Current draw from the battery is 0.15A using the DC-DC boost converter (~3.25V to 11.5V).
-The LED bulb normally only draws 0.041A, but it draws more current due to the need to boost the voltage.
-The current draw into the transistor base (from the GPIO pin) is < 0.001A, extremely small. But **NEEDS TO GO THROUGH A 10,000 OHM RESISTOR**!
+- With the landscape lighting LED bulb (12V):
+    - Current draw from the battery is 0.15A using the DC-DC boost converter (~3.25V to 11.5V).
+    - The LED bulb normally only draws 0.041A, but it draws more current due to the need to boost the voltage.
+    - The current draw into the transistor base (from the GPIO pin) is < 0.001A, extremely small. But **NEEDS TO GO THROUGH A 10,000 OHM RESISTOR**!
+- With the [red marine lights](https://www.amazon.com/dp/B081HD261N?psc=1&smid=A1J9BIVZ7I2UP0&ref_=chk_typ_imgToDp) (12V)
+    - Current draw raw @ 12V: 0.07A
+    - Current draw @ 3.5V going through MT3608 boost converter to 12V: 0.311A
 
 ## Searching for the right LED
 - Circular, like [this](https://www.amazon.com/Landscape-Halogen-Equivalent-Daylight-Recessed/dp/B07N86919J/ref=sr_1_58?crid=2HQB8UFH497GN&keywords=BAOMING+G4+led+red&qid=1658066241&sprefix=baoming+g4+led+re%2Caps%2C72&sr=8-58), but needs to be red.
