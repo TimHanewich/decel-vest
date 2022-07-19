@@ -39,6 +39,7 @@ _thread.start_new_thread(strobe_controller.continuous_strobe, ())
 # create the variables that we will use
 gps = gps_driver.gps_driver()
 strobe_calc = strobe_calculator.strobe_calculator()
+strobe_calc.setup() #parse the polygons from the onboard polygons.json file
 
 # set up the GPS driver
 print("Setting up GPS driver...")
