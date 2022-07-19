@@ -42,12 +42,8 @@ strobe_calc = strobe_calculator.strobe_calculator()
 strobe_calc.setup() #parse the polygons from the onboard polygons.json file
 
 # set up the GPS driver
-print("Setting up GPS driver...")
 gps.setup()
-print("GPS driver set up!")
 
-# print the headers
-print("fix_speed_hz", False)
 
 def act_on_speed(fixed:int, speed_mph:float):
 
