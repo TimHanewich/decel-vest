@@ -83,13 +83,11 @@ while True:
                 speed = nmea.get_speed_mph(line)
                 if fixed != None and speed != None:
                     act_on_speed(fixed, speed)
-                    print(str(fixed) + "_" + str(speed) + "_" + str(hz))
             elif nmea.is_gpgga(line):
                 tele = nmea.parse(line)
                 if tele != None:
                     if tele.latitude != None and tele.longitude != None:
                         act_on_gps(tele.latitude, tele.longitude)
-                        print("GPS logged: " + str(tele.latitude) + ", " + str(tele.longitude))
 
 
     except Exception as e:
