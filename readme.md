@@ -70,3 +70,6 @@ For whatever reason, MicroPython reads the new lines in a CSV file that is gener
 
 ## Searching for the right LED
 - Circular, like [this](https://www.amazon.com/Landscape-Halogen-Equivalent-Daylight-Recessed/dp/B07N86919J/ref=sr_1_58?crid=2HQB8UFH497GN&keywords=BAOMING+G4+led+red&qid=1658066241&sprefix=baoming+g4+led+re%2Caps%2C72&sr=8-58), but needs to be red.
+
+## Notable commits
+- Works perfectly, with 1 LED: `0e79e44b835c4c671140007cf82c78b128e7ad99`
