@@ -64,13 +64,15 @@ while True:
                     hz = strobe_calc.ingest(fixed, speed)
 
                     # set the hz that we have
-                    if hz != None:
-                        #print("Hertz was something: " + str(hz))
+                    if hz == None: # nothing was provided, so mute the lights (show nothing)
+                        strobe_controller.mute()
+                    elif type(hz) == float: # a hz was provided, so make sure we are in hz mode, set the hz, and then show it!
+                        strobe_controller.set_mode(strobe_controller.mode_hz) #set to flashy mode
                         strobe_controller.set_hertz(hz)
                         strobe_controller.unmute()
-                    else:
-                        #print("hertz was nothing")
-                        strobe_controller.mute()
+                    elif type(hz) == str: # a string value was provided, signifying we are following a standard pattern
+                        if hz == "polygon": # we are within a polygon, so set the mode to pit lane mode
+                            strobe_controller.set_mode(strobe_controller.mode_pit) #set to pit lane mode
                 
                     # log the data
                     print(str(fixed) + "_" + str(speed) + "_" + str(hz))

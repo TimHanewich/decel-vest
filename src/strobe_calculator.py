@@ -64,7 +64,7 @@ class strobe_calculator:
             pass
 
     # outputs a recommended hertz
-    def ingest(self, fixed:int, speed_mph:float) -> float:
+    def ingest(self, fixed:int, speed_mph:float):
 
         # take a copy of what the old data is. We do this because we need to use it later, but must set it right after this (before calculations) because the calculations may return a value and therefore terminate the program. So therefore we need to set it up here, not after the calculation
         old_speed = self.__last_speed_mph__
@@ -83,11 +83,12 @@ class strobe_calculator:
                     loc.Y = self.__last_lon__
                     inside = boundary.IsPointInPolygon(loc, polygon)
                     if inside:
-                        return settings.polygon_hz
+                        return "polygon"
 
             
 
         # Now that none of the above returned anything, we get to this point, meaning that we will have to check what the hz will be based on the decelration or lack of deceleration
+        # at this point, we will either be returning None or a float, representing the hz to adjust to
         # if we have old data
         if old_speed != None and old_fixed != None:
 
