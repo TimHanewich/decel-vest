@@ -11,14 +11,17 @@ muted = False
 def continuous_strobe():
     global wait_time
 
-    strobe_output = machine.Pin(settings.gpio_strobe1, machine.Pin.OUT)
+    strobe1 = machine.Pin(settings.gpio_strobe1, machine.Pin.OUT)
+    strobe2 = machine.Pin(settings.gpio_strobe2, machine.Pin.OUT)
 
     while True:
         if muted == False:
-            strobe_output.toggle()
+            strobe1.toggle()
+            strobe2.toggle()
             time.sleep(wait_time)
         else:
-            strobe_output.value(0)
+            strobe1.value(0)
+            strobe2.value(0)
             time.sleep(0.1)
 
 
