@@ -2,7 +2,10 @@
 gpio_strobe = 1
 max_hz = 18
 min_hz = 2
+
+# polygon area settings
 polygon_hz = 1
+polygon_file_path = "/polygons.json"
 
 # GPS settings
 gpio_gps_rx = 5

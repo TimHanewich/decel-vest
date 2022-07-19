@@ -56,6 +56,13 @@ class strobe_calculator:
         self.__last_lat__ = lat
         self.__last_lon__ = lon
 
+    def setup(self):
+        try:
+            polygons = boundary.parse_file(settings.polygon_file_path)
+            self.__polygons__ = polygons
+        except:
+            pass
+
     # outputs a recommended hertz
     def ingest(self, fixed:int, speed_mph:float) -> float:
 
@@ -138,9 +145,3 @@ class strobe_calculator:
                 hz = strobe_tools.select_hertz(decel_percent) # CALCULATING THE VALUE TO RETURN
                 return hz
 
-                # # turn it into a percentage that we will use to calculate the hz of the strobe
-                # decel_percent = (abs(accel_mphs) - settings.min_decel_trigger) / (settings.max_decel_strobe - settings.min_decel_strobe)
-                # decel_percent = min(decel_percent, 1.0) #make sure it doesn't exceed 100%
-                # decel_percent = max(decel_percent, 0) #make sure it doesn't fall below 0%
-                # hz = strobe_tools.select_hertz(decel_percent) # CALCULATING THE VALUE TO RETURN
-                # return hz
