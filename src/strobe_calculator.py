@@ -1,6 +1,7 @@
 import nmea
 import strobe_tools
 import settings
+import boundary
 
 
 # MODE VALUES
@@ -14,12 +15,17 @@ class fixed_speed:
 
 class strobe_calculator:
 
+    # variables for seeing if we are in one of the polygon areas
+    __polygons__ = None
+    __last_lat__ = None
+    __last_lon__ = None
+
     # variables for tracking
     __last_speed_mph__ = None #the speed that was most recently received
     __last_fixed__ = None #the last fixed time that the speed was received at
     __mode__ = AwaitingDeceleration
 
-    # tracking of speed (avg)
+    # averaging out the deceleration
     __fixed_speed_buff__ = []
     __buff_len__ = 9999 # how many speed logs will be considered as a buffer. You can rasie this to an extremely large number (like 9999) for it to just average out the entirety of the deceleration. So no longer how long the deceleration is, the hz of the strobe will be calculated on the average deceleration from the start of the deceleration to the end.
 
@@ -45,7 +51,10 @@ class strobe_calculator:
             return accel
         else:
             return None
-        
+
+    def ingest_gps(self, lat:float, lon:float):
+        self.__last_lat__ = lat
+        self.__last_lon__ = lon
 
     # outputs a recommended hertz
     def ingest(self, fixed:int, speed_mph:float) -> float:
@@ -58,6 +67,20 @@ class strobe_calculator:
         self.__last_speed_mph__ = speed_mph
         self.__last_fixed__ = fixed
 
+        # Check if we are inside a polygon
+        if self.__last_lat__ != None and self.__last_lon__ != None:
+            if self.__polygons__ != None:
+                for polygon in self.__polygons__:
+                    loc = boundary.Point()
+                    loc.X = self.__last_lat__
+                    loc.Y = self.__last_lon__
+                    inside = boundary.IsPointInPolygon(loc, polygon)
+                    if inside:
+                        return settings.polygon_hz
+
+            
+
+        # Now that none of the above returned anything, we get to this point, meaning that we will have to check what the hz will be based on the decelration or lack of deceleration
         # if we have old data
         if old_speed != None and old_fixed != None:
 

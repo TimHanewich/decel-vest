@@ -2,6 +2,7 @@
 gpio_strobe = 1
 max_hz = 18
 min_hz = 2
+polygon_hz = 1
 
 # GPS settings
 gpio_gps_rx = 5

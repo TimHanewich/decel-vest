@@ -156,6 +156,13 @@ def parse(line:str) -> gps_telemetry:
     # RETURN!
     return ToReturn
 
+
+def is_gpgga(line:str):
+    if "gpgga" in line.lower():
+        return True
+    else:
+        return False
+
 def is_gprmc(line:str):
     if "gprmc" in line.lower():
         return True
