@@ -13,6 +13,10 @@ STROBE_MODE = mode_hz
 wait_time = 1 #this sets the wait time in between each flash
 muted = False
 
+def set_mode(mode:int):
+    global STROBE_MODE
+    STROBE_MODE = mode
+
 def continuous_strobe():
 
     global wait_time
