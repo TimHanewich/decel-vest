@@ -65,9 +65,10 @@ while True:
 
                     # set the hz that we have
                     if hz == None: # nothing was provided, so mute the lights (show nothing)
+                        strobe_controller.set_mode(strobe_controller.mode_hz) #set to hz mode
                         strobe_controller.mute()
                     elif type(hz) == float: # a hz was provided, so make sure we are in hz mode, set the hz, and then show it!
-                        strobe_controller.set_mode(strobe_controller.mode_hz) #set to flashy mode
+                        strobe_controller.set_mode(strobe_controller.mode_hz) #set to hz mode
                         strobe_controller.set_hertz(hz)
                         strobe_controller.unmute()
                     elif type(hz) == str: # a string value was provided, signifying we are following a standard pattern
