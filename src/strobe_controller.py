@@ -29,31 +29,32 @@ def continuous_strobe():
     strobe2 = machine.Pin(settings.gpio_strobe2, machine.Pin.OUT)
 
     while True:
-        if STROBE_MODE == mode_hz:
-            if muted == False:
+        if muted == False:
+            if STROBE_MODE == mode_hz:
                 strobe1.toggle()
                 strobe2.toggle()
                 time.sleep(wait_time)
-            else:
+            elif STROBE_MODE == mode_pit:
+                while STROBE_MODE == mode_pit:
+
+                    #First pattern
+                    strobe1.value(1)
+                    strobe2.value(0)
+                    time.sleep(1)
+
+                    #second pattern
+                    strobe1.value(0)
+                    strobe2.value(1)
+                    time.sleep(1)
+                
+                # turn both off so they are both on the same value
                 strobe1.value(0)
                 strobe2.value(0)
-                time.sleep(0.1)
-        elif STROBE_MODE == mode_pit:
-            while STROBE_MODE == mode_pit:
-
-                #First pattern
-                strobe1.value(1)
-                strobe2.value(0)
-                time.sleep(1)
-
-                #second pattern
-                strobe1.value(0)
-                strobe2.value(1)
-                time.sleep(1)
-            
-            # turn both off so they are both on the same value
+        else:
             strobe1.value(0)
             strobe2.value(0)
+            time.sleep(0.1)
+
 
 
 def set_hertz(hz:float):
