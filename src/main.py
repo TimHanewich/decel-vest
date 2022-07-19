@@ -7,7 +7,7 @@ strobe_solid = 4
 pitlane_test = 5
 
 # RUN MODE
-EXECUTION_MODE = pitlane_test
+EXECUTION_MODE = decel_vest
 
 if EXECUTION_MODE == decel_vest:
     import decel_vest
