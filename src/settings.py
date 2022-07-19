@@ -5,7 +5,7 @@ min_hz = 2
 
 # polygon area settings
 polygon_hz = 1
-polygon_file_path = "/polygons.json"
+polygon_file_path = r"/polygons.json"
 
 # GPS settings
 gpio_gps_rx = 5
