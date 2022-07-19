@@ -66,6 +66,7 @@ def act_on_gps(latitude:float, longitude:float):
     global strobe_calc
     strobe_calc.ingest_gps(tele.latitude, tele.longitude)
 
+print("Starting loop...")
 while True:
     try:
 
