@@ -13,7 +13,7 @@ import time
 led = Pin(25, Pin.OUT)
 
 # flash the strobe light and the onboard LED at the same time to confirm it is on
-strobe_pin = Pin(settings.gpio_strobe, Pin.OUT)
+strobe_pin = Pin(settings.gpio_strobe1, Pin.OUT)
 strobe_pin.value(1)
 led.value(1)
 time.sleep(0.5)

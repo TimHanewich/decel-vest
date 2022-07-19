@@ -1,5 +1,6 @@
 # Strobe settings
-gpio_strobe = 1
+gpio_strobe1 = 1 #left
+gpio_strobe2 = 8 #right
 max_hz = 18
 min_hz = 2
 
