@@ -14,7 +14,7 @@ led = Pin(25, Pin.OUT)
 
 # flash the strobe light and the onboard LED at the same time to confirm it is on
 strobe1_pin = Pin(settings.gpio_strobe1, Pin.OUT)
-strobe2_pin = Pine(settings.gpio_strobe2, Pin.OUT)
+strobe2_pin = Pin(settings.gpio_strobe2, Pin.OUT)
 strobe1_pin.value(1)
 strobe2_pin.value(1)
 led.value(1)
